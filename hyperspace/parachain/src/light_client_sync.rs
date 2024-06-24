@@ -12,8 +12,9 @@ use sp_runtime::{
 	traits::{IdentifyAccount, One, Verify},
 	MultiSignature, MultiSigner,
 };
-use subxt::config::ExtrinsicParams;
-
+use subxt::config::{DefaultExtrinsicParamsBuilder, ExtrinsicParams};
+use subxt::config::Header;
+use subxt::backend::legacy::LegacyRpcMethods;
 use grandpa_prover::GrandpaProver;
 use ibc::core::ics02_client::msgs::update_client::MsgUpdateAnyClient;
 use tendermint_proto::Protobuf;
@@ -38,7 +39,6 @@ const MAX_HEADERS_PER_ITERATION: usize = 100;
 impl<T: light_client_common::config::Config + Send + Sync + Clone> LightClientSync
 	for ParachainClient<T>
 where
-	u32: From<<<T as subxt::Config>::Header as HeaderT>::Number>,
 	u32: From<<<T as subxt::Config>::Header as Header>::Number>,
 	Self: KeyProvider,
 	<<T as light_client_common::config::Config>::Signature as Verify>::Signer:
@@ -53,8 +53,8 @@ where
 	sp_core::H256: From<T::Hash>,
 	BTreeMap<sp_core::H256, ParachainHeaderProofs>:
 		From<BTreeMap<<T as subxt::Config>::Hash, ParachainHeaderProofs>>,
-	<T::ExtrinsicParams as ExtrinsicParams<T::Index, T::Hash>>::Params:
-		From<BaseExtrinsicParamsBuilder<T, T::Tip>> + Send + Sync,
+	<T::ExtrinsicParams as ExtrinsicParams<T>>::Params:
+		From<DefaultExtrinsicParamsBuilder<T>> + Send + Sync,
 	<T as light_client_common::config::Config>::AssetId: Clone,
 	<T as subxt::Config>::AccountId: Send + Sync,
 	<T as subxt::Config>::Address: Send + Sync,
@@ -69,6 +69,7 @@ where
 		match self.finality_protocol {
 			FinalityProtocol::Grandpa => {
 				let prover = self.grandpa_prover();
+				let relay_legacy_baackend_client = LegacyRpcMethods::<T>::new(self.relay_rpc_client.clone());
 				let AnyClientState::Grandpa(client_state) =
 					AnyClientState::decode_recursive(any_client_state, |c| {
 						matches!(c, AnyClientState::Grandpa(_))
@@ -78,9 +79,9 @@ where
 					unreachable!()
 				};
 
-				let latest_hash = self.relay_client.finalized_head().await?;
+				let latest_hash = relay_legacy_baackend_client.chain_get_finalized_head().await?;
 				let finalized_head =
-					self.relay_client.header(Some(latest_hash)).await?.ok_or_else(|| {
+					relay_legacy_baackend_client.chain_get_header(Some(latest_hash)).await?.ok_or_else(|| {
 						Error::Custom(format!("Expected finalized header, found None"))
 					})?;
 				let previous_finalized_height = client_state.latest_relay_height;
@@ -104,6 +105,7 @@ where
 	) -> Result<(Vec<Any>, Vec<IbcEvent>), anyhow::Error> {
 		let latest_height = counterparty.latest_height_and_timestamp().await?.0;
 		let response = counterparty.query_client_state(latest_height, self.client_id()).await?;
+		let relay_legacy_baackend_client = LegacyRpcMethods::<T>::new(self.relay_rpc_client.clone());
 		let any_client_state = response.client_state.ok_or_else(|| {
 			Error::Custom("Received an empty client state from counterparty".to_string())
 		})?;
@@ -118,9 +120,9 @@ where
 				else {
 					unreachable!()
 				};
-				let latest_hash = self.relay_client.finalized_head().await?;
+				let latest_hash = relay_legacy_baackend_client.chain_get_finalized_head().await?;
 				let finalized_head =
-					self.relay_client.header(Some(latest_hash)).await?.ok_or_else(|| {
+					relay_legacy_baackend_client.chain_get_header(Some(latest_hash)).await?.ok_or_else(|| {
 						Error::Custom(format!("Expected finalized header, found None"))
 					})?;
 				let latest_finalized_height = u32::from(finalized_head.number());
@@ -147,7 +149,7 @@ where
 
 impl<T: light_client_common::config::Config + Send + Sync + Clone> ParachainClient<T>
 where
-	u32: From<<<T as subxt::Config>::Header as HeaderT>::Number>,
+	u32: From<<<T as subxt::Config>::Header as subxt::config::Header>::Number>,
 	Self: KeyProvider,
 	<<T as light_client_common::config::Config>::Signature as Verify>::Signer:
 		From<MultiSigner> + IdentifyAccount<AccountId = T::AccountId>,
@@ -161,6 +163,8 @@ where
 		BlockNumberOps + From<u32> + Display + Ord + sp_runtime::traits::Zero + One,
 	<T as subxt::Config>::AccountId: Send + Sync,
 	<T as subxt::Config>::Address: Send + Sync,
+	<T::ExtrinsicParams as ExtrinsicParams<T>>::Params:
+		From<DefaultExtrinsicParamsBuilder<T>> + Send + Sync,
 {
 	/// Returns a tuple of the client update messages in the exclusive range
 	/// `previous_finalized_height..latest_finalized_height`, relay chain block of the last message
@@ -176,17 +180,13 @@ where
 		limit: usize,
 	) -> Result<(Vec<Any>, Vec<IbcEvent>), anyhow::Error>
 	where
-		<<T as subxt::Config>::ExtrinsicParams as ExtrinsicParams<
-			<T as subxt::Config>::Index,
-			<T as subxt::Config>::Hash,
-		>>::Params: Sync
-			+ Send
-			+ From<BaseExtrinsicParamsBuilder<T, <T as light_client_common::config::Config>::Tip>>,
+		<T::ExtrinsicParams as ExtrinsicParams<T>>::Params:
+			From<DefaultExtrinsicParamsBuilder<T>> + Send + Sync,
 		<T as subxt::Config>::Hash: From<H256>,
 		<T as subxt::Config>::Hash: From<[u8; 32]>,
 		<T as light_client_common::config::Config>::AssetId: Clone,
 		<T as subxt::Config>::Header: Decode + Send + Sync + Clone,
-		<<T as subxt::Config>::Header as HeaderT>::Number: Send + Sync,
+		<<T as subxt::Config>::Header as Header>::Number: Send + Sync,
 	{
 		let prover = self.grandpa_prover();
 		let session_length = prover.session_length().await?;
@@ -248,8 +248,7 @@ async fn get_message<T: light_client_common::config::Config + Send + Sync>(
 	para_id: u32,
 ) -> Result<(Any, Vec<IbcEvent>, u32, u32), anyhow::Error>
 where
-	u32: From<<<T as subxt::Config>::Header as HeaderT>::Number>
-		+ From<<<T as subxt::Config>::Header as Header>::Number>,
+	u32: From<<<T as subxt::Config>::Header as Header>::Number>,
 	<<T as subxt::Config>::Header as Header>::Number:
 		BlockNumberOps + From<u32> + Display + Ord + sp_runtime::traits::Zero + One + Send + Sync,
 	<T as subxt::Config>::Header: Decode + Send + Sync + Clone,

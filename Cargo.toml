@@ -106,6 +106,7 @@ subxt-generated                            = { path = "utils/subxt/generated" }
 subxt                                      = { git = "https://github.com/paritytech/subxt",  tag = "v0.37.0", features = ["substrate-compat"] }
 subxt-core                                 = { git = "https://github.com/paritytech/subxt",  tag = "v0.37.0", features = ["substrate-compat"] }
 subxt-metadata                             = { git = "https://github.com/paritytech/subxt",  tag = "v0.37.0", features = ["substrate-compat"] }
+subxt-codegen                              = { git = "https://github.com/paritytech/subxt",  tag = "v0.37.0", features = ["substrate-compat"] }
 scale-decode                               = { version = "0.13.0", default-features = false }
 scale-encode                               = { version = "0.7.0", default-features = false }
 scale-info                                 = { version = "2.11.0", default-features = false, features = ["derive"] }

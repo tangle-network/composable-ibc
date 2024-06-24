@@ -54,11 +54,12 @@ use std::{
 	fmt::{Debug, Display},
 	time::Duration,
 };
+use subxt::config::DefaultExtrinsicParamsBuilder;
 
 use grandpa_prover::{
 	GrandpaJustification, GrandpaProver, JustificationNotification, PROCESS_BLOCKS_BATCH_SIZE,
 };
-use subxt::{backend::legacy::LegacyRpcMethods, config::ExtrinsicParams};
+use subxt::{backend::legacy::LegacyRpcMethods, config::{ExtrinsicParams, Header}};
 use tendermint_proto::Protobuf;
 use tokio::task::JoinSet;
 
@@ -89,7 +90,6 @@ impl FinalityProtocol {
 	where
 		T: light_client_common::config::Config + Send + Sync,
 		C: Chain,
-		u32: From<<<T as subxt::Config>::Header as HeaderT>::Number>,
 		u32: From<<<T as subxt::Config>::Header as Header>::Number>,
 		ParachainClient<T>: Chain,
 		ParachainClient<T>: KeyProvider,
@@ -111,8 +111,8 @@ impl FinalityProtocol {
 		sp_core::H256: From<T::Hash>,
 		BTreeMap<H256, ParachainHeaderProofs>:
 			From<BTreeMap<<T as subxt::Config>::Hash, ParachainHeaderProofs>>,
-		<T::ExtrinsicParams as ExtrinsicParams<T::Index, T::Hash>>::Params:
-			From<BaseExtrinsicParamsBuilder<T, T::Tip>> + Send + Sync,
+		<T::ExtrinsicParams as ExtrinsicParams<T>>::Params:
+			From<DefaultExtrinsicParamsBuilder<T>> + Send + Sync,
 		<T as subxt::Config>::AccountId: Send + Sync,
 		<T as subxt::Config>::Address: Send + Sync,
 	{
@@ -136,8 +136,7 @@ pub async fn query_latest_ibc_events_with_beefy<T, C>(
 where
 	T: light_client_common::config::Config + Send + Sync,
 	C: Chain,
-	u32: From<<<T as subxt::Config>::Header as HeaderT>::Number>
-		+ From<<<T as subxt::Config>::Header as Header>::Number>,
+	u32: From<<<T as subxt::Config>::Header as Header>::Number>,
 	ParachainClient<T>: Chain + KeyProvider,
 	<<T as light_client_common::config::Config>::Signature as Verify>::Signer:
 		From<MultiSigner> + IdentifyAccount<AccountId = T::AccountId>,
@@ -146,8 +145,8 @@ where
 	<<T as subxt::Config>::Header as Header>::Number:
 		From<u32> + Debug + Display + Ord + sp_runtime::traits::Zero + One,
 	<T as subxt::Config>::Header: Decode,
-	<T::ExtrinsicParams as ExtrinsicParams<T::Index, T::Hash>>::Params:
-		From<BaseExtrinsicParamsBuilder<T, T::Tip>> + Send + Sync,
+	<T::ExtrinsicParams as ExtrinsicParams<T>>::Params:
+		From<DefaultExtrinsicParamsBuilder<T>> + Send + Sync,
 	T::Hash: From<sp_core::H256>,
 	sp_core::H256: From<T::Hash>,
 	<T as subxt::Config>::AccountId: Send + Sync,
@@ -363,8 +362,7 @@ async fn find_next_justification<T>(
 ) -> anyhow::Result<Option<GrandpaJustification<T::Header>>>
 where
 	T: light_client_common::config::Config + Send + Sync,
-	u32: From<<<T as subxt::Config>::Header as HeaderT>::Number>
-		+ From<<<T as subxt::Config>::Header as Header>::Number>,
+	u32: From<<<T as subxt::Config>::Header as Header>::Number>,
 	ParachainClient<T>: Chain + KeyProvider,
 	<<T as light_client_common::config::Config>::Signature as Verify>::Signer:
 		From<MultiSigner> + IdentifyAccount<AccountId = T::AccountId>,
@@ -376,8 +374,8 @@ where
 	sp_core::H256: From<T::Hash>,
 	BTreeMap<H256, ParachainHeaderProofs>:
 		From<BTreeMap<<T as subxt::Config>::Hash, ParachainHeaderProofs>>,
-	<T::ExtrinsicParams as ExtrinsicParams<T::Index, T::Hash>>::Params:
-		From<BaseExtrinsicParamsBuilder<T, T::Tip>> + Send + Sync,
+	<T::ExtrinsicParams as ExtrinsicParams<T>>::Params:
+		From<DefaultExtrinsicParamsBuilder<T>> + Send + Sync,
 	<T as subxt::Config>::Header: Decode + Send + Sync + Clone,
 	<T as subxt::Config>::AccountId: Send + Sync,
 	<T as subxt::Config>::Address: Send + Sync,
@@ -390,18 +388,19 @@ where
 			if height % 100 == 0 {
 				log::debug!(target: "hyperspace", "Looking for a closer proof {height}/{to}...");
 			}
-			let relay_client = prover.relay_client.clone();
+			let relay_rpc_client = prover.relay_rpc_client.clone();
+			let legacy_rpc_client = LegacyRpcMethods::<T>::new(relay_rpc_client.clone());
 			let delay = prover.rpc_call_delay.as_millis();
 			let duration = Duration::from_millis(rand::thread_rng().gen_range(1..delay) as u64);
 			join_set.spawn(async move {
 				tokio::time::sleep(duration).await;
-				let Some(hash) = LegacyRpcMethods::<T>::new(relay_client.clone())
+				let Some(hash) = legacy_rpc_client
 					.chain_get_block_hash(Some(height.into()))
 					.await?
 				else {
 					return Ok(None)
 				};
-				let Some(block) = LegacyRpcMethods::<T>::new(relay_client.clone())
+				let Some(block) = legacy_rpc_client
 					.chain_get_block(Some(hash))
 					.await?
 				else {
@@ -440,8 +439,7 @@ pub async fn query_latest_ibc_events_with_grandpa<T, C>(
 where
 	T: light_client_common::config::Config + Send + Sync,
 	C: Chain,
-	u32: From<<<T as subxt::Config>::Header as HeaderT>::Number>
-		+ From<<<T as subxt::Config>::Header as Header>::Number>,
+	u32: From<<<T as subxt::Config>::Header as Header>::Number>,
 	ParachainClient<T>: Chain + KeyProvider,
 	<<T as light_client_common::config::Config>::Signature as Verify>::Signer:
 		From<MultiSigner> + IdentifyAccount<AccountId = T::AccountId>,
@@ -453,8 +451,8 @@ where
 	sp_core::H256: From<T::Hash>,
 	BTreeMap<H256, ParachainHeaderProofs>:
 		From<BTreeMap<<T as subxt::Config>::Hash, ParachainHeaderProofs>>,
-	<T::ExtrinsicParams as ExtrinsicParams<T::Index, T::Hash>>::Params:
-		From<BaseExtrinsicParamsBuilder<T, T::Tip>> + Send + Sync,
+	<T::ExtrinsicParams as ExtrinsicParams<T>>::Params:
+		From<DefaultExtrinsicParamsBuilder<T>> + Send + Sync,
 	<T as subxt::Config>::Header: Decode + Send + Sync + Clone,
 	<T as subxt::Config>::AccountId: Send + Sync,
 	<T as subxt::Config>::Address: Send + Sync,
@@ -480,6 +478,8 @@ where
 	};
 
 	let prover = source.grandpa_prover();
+	let relay_rpc_client = prover.relay_rpc_client.clone();
+	let legacy_rpc_client = LegacyRpcMethods::<T>::new(relay_rpc_client.clone());
 	// prove_finality will always give us the highest block finalized by the authority set for the
 	// block number passed, so we can't miss any authority set change since the session change block
 	// will always be finalized.
@@ -531,10 +531,8 @@ where
 			.iter()
 			.any(|h| h.number().into() == justification.commit.target_number as u64)
 	{
-		let header = prover
-			.relay_client
-			.rpc()
-			.header(Some(justification.commit.target_hash.into()))
+		let header = legacy_rpc_client
+			.chain_get_header(Some(justification.commit.target_hash.into()))
 			.await
 			.unwrap()
 			.unwrap();
@@ -656,11 +654,11 @@ where
 			headers_with_events.into_iter().collect(),
 		)
 		.await?;
-
-	let target = source
-		.relay_client
-		.rpc()
-		.header(Some(finality_proof.block.into()))
+	
+	let source_relay_rpc_client = source.relay_rpc_client.clone();
+	let source_legacy_rpc_client = LegacyRpcMethods::<T>::new(source_relay_rpc_client.clone());
+	let target = source_legacy_rpc_client
+		.chain_get_header(Some(finality_proof.block.into()))
 		.await?
 		.ok_or_else(|| {
 			Error::from("Could not find relay chain header for justification target".to_string())

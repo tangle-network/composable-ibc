@@ -52,7 +52,9 @@ use sp_runtime::{
 use std::{collections::BTreeMap, fmt::Display, pin::Pin, sync::Arc, time::Duration};
 use subxt::{backend::legacy::LegacyRpcMethods, config::ExtrinsicParams, events::Phase};
 use tokio::time::sleep;
-
+use subxt::config::Header;
+use subxt::config::DefaultExtrinsicParamsBuilder;
+use subxt::backend::rpc::RpcClient;
 type GrandpaJustification = grandpa_light_client_primitives::justification::GrandpaJustification<
 	polkadot_core_primitives::Header,
 >;
@@ -68,7 +70,6 @@ struct JustificationNotification(sp_core::Bytes);
 impl<T: light_client_common::config::Config + Send + Sync + Clone + 'static> Chain
 	for ParachainClient<T>
 where
-	u32: From<<<T as subxt::Config>::Header as HeaderT>::Number>,
 	u32: From<<<T as subxt::Config>::Header as Header>::Number>,
 	<<T as light_client_common::config::Config>::Signature as Verify>::Signer:
 		From<MultiSigner> + IdentifyAccount<AccountId = T::AccountId>,
@@ -82,8 +83,8 @@ where
 	BTreeMap<sp_core::H256, ParachainHeaderProofs>:
 		From<BTreeMap<<T as subxt::Config>::Hash, ParachainHeaderProofs>>,
 	sp_core::H256: From<T::Hash>,
-	<T::ExtrinsicParams as ExtrinsicParams<T::Index, T::Hash>>::Params:
-		From<BaseExtrinsicParamsBuilder<T, T::Tip>> + Send + Sync,
+	<T::ExtrinsicParams as ExtrinsicParams<T>>::Params:
+		From<DefaultExtrinsicParamsBuilder<T>> + Send + Sync,
 	<T as subxt::Config>::AccountId: Send + Sync,
 	<T as subxt::Config>::Address: Send + Sync,
 	<T as light_client_common::config::Config>::AssetId: Clone,
@@ -91,6 +92,7 @@ where
 	fn name(&self) -> &str {
 		&*self.name
 	}
+
 
 	fn block_max_weight(&self) -> u64 {
 		self.max_extrinsic_weight * 100 / 80
@@ -110,9 +112,8 @@ where
 				.map(|msg| Any { type_url: msg.type_url.clone(), value: msg.value })
 				.collect::<Vec<_>>();
 
-			let tx_params = BaseExtrinsicParamsBuilder::new()
-				.tip(T::Tip::from(100_000u128))
-				.era(Era::Immortal, self.para_client.genesis_hash());
+			let tx_params = DefaultExtrinsicParamsBuilder::new()
+				.tip(100_000u128);
 			let call = T::Tx::ibc_deliver(messages);
 			self.para_client
 				.tx()
@@ -221,10 +222,10 @@ where
 
 	async fn query_client_message(&self, update: UpdateClient) -> Result<AnyClientMessage, Error> {
 		let host_height = update.height();
-
+		let para_legacy_rpc_client = LegacyRpcMethods::<T>::new(self.para_rpc_client.clone());
 		let now = std::time::Instant::now();
 		let block_hash = loop {
-			let maybe_hash = LegacyRpcMethods::<T>::new(self.para_rpc_client.clone())
+			let maybe_hash = para_legacy_rpc_client
 				.chain_get_block_hash(Some(host_height.revision_height.into()))
 				.await?;
 			match maybe_hash {
@@ -241,12 +242,14 @@ where
 		let mut storage_key = twox_128(b"System").to_vec();
 		storage_key.extend(twox_128(b"Events").to_vec());
 
-		let event_bytes = self
+		let event_found = self
 			.para_client
-			.storage(&*storage_key, Some(block_hash))
-			.await?
-			.map(|e| e.0)
-			.ok_or_else(|| Error::from("No events found".to_owned()))?;
+			.events()
+			.at(block_hash)
+			.await?;
+
+		let event_bytes = event_found.bytes();
+
 		let events: Vec<T::EventRecord> = Decode::decode(&mut &*event_bytes)
 			.map_err(|e| Error::from(format!("Failed to decode events: {:?}", e)))?;
 		let (transaction_index, event_index) = events
@@ -276,9 +279,8 @@ where
 			})
 			.ok_or_else(|| Error::from("No update client event found".to_owned()))?;
 
-		let block = self
-			.para_client
-			.block(Some(block_hash.into()))
+		let block = para_legacy_rpc_client
+			.chain_get_block(Some(block_hash.into()))
 			.await?
 			.ok_or_else(|| Error::from(format!("Block not found for hash {:?}", block_hash)))?;
 
@@ -341,6 +343,9 @@ where
 				.await
 				.map_err(|e| Error::from(format!("Rpc Error {:?}", e)))?,
 		);
+		
+		let relay_rpc_client = RpcClient::from_url(&self.relay_chain_rpc_url).await?;
+
 		let para_ws_client = Arc::new(
 			WsClientBuilder::default()
 				.build(&self.parachain_rpc_url)
@@ -348,8 +353,10 @@ where
 				.map_err(|e| Error::from(format!("Rpc Error {:?}", e)))?,
 		);
 
-		let para_client = subxt::OnlineClient::from_rpc_client(para_ws_client.clone()).await?;
-		let relay_client = subxt::OnlineClient::from_rpc_client(relay_ws_client.clone()).await?;
+		let para_rpc_client = RpcClient::from_url(&self.parachain_rpc_url).await?;
+
+		let para_client = subxt::OnlineClient::from_rpc_client(para_rpc_client.clone()).await?;
+		let relay_client = subxt::OnlineClient::from_rpc_client(relay_rpc_client.clone()).await?;
 
 		self.relay_ws_client = relay_ws_client;
 		self.para_ws_client = para_ws_client;
@@ -374,7 +381,6 @@ where
 impl<T: light_client_common::config::Config + Send + Sync> MisbehaviourHandler
 	for ParachainClient<T>
 where
-	u32: From<<<T as subxt::Config>::Header as HeaderT>::Number>,
 	u32: From<<<T as subxt::Config>::Header as Header>::Number>,
 	<<T as light_client_common::config::Config>::Signature as Verify>::Signer:
 		From<MultiSigner> + IdentifyAccount<AccountId = T::AccountId>,
@@ -387,8 +393,8 @@ where
 	BTreeMap<sp_core::H256, ParachainHeaderProofs>:
 		From<BTreeMap<<T as subxt::Config>::Hash, ParachainHeaderProofs>>,
 	sp_core::H256: From<T::Hash>,
-	<T::ExtrinsicParams as ExtrinsicParams<T::Index, T::Hash>>::Params:
-		From<BaseExtrinsicParamsBuilder<T, T::Tip>> + Send + Sync,
+	<T::ExtrinsicParams as ExtrinsicParams<T>>::Params:
+		From<DefaultExtrinsicParamsBuilder<T>> + Send + Sync,
 	<T as subxt::Config>::AccountId: Send + Sync,
 	<T as subxt::Config>::Address: Send + Sync,
 {
@@ -398,6 +404,7 @@ where
 		client_message: AnyClientMessage,
 	) -> Result<(), anyhow::Error> {
 		let client_message = client_message.unpack_recursive_into();
+		let relay_legacy_backend_client = LegacyRpcMethods::<T>::new(self.relay_rpc_client.clone());
 		match client_message {
 			AnyClientMessage::Grandpa(ClientMessage::Header(header)) => {
 				let base_header = header
@@ -407,9 +414,8 @@ where
 					.min_by_key(|h| h.number)
 					.expect("unknown_headers always contain at least one header; qed");
 
-				let common_ancestor_header =
-					LegacyRpcMethods::<T>::new(self.relay_rpc_client.clone())
-						.header(Some(base_header.parent_hash.into()))
+				let common_ancestor_header = relay_legacy_backend_client
+						.chain_get_header(Some(base_header.parent_hash.into()))
 						.await?
 						.ok_or_else(|| {
 							anyhow!("No header found for hash: {:?}", base_header.parent_hash)
@@ -437,8 +443,7 @@ where
 				let to_block = trusted_justification.commit.target_number;
 				let from_block = (common_ancestor_block_number + 1).min(to_block);
 
-				let trusted_base_header_hash =
-					LegacyRpcMethods::<T>::new(self.relay_rpc_client.clone())
+				let trusted_base_header_hash = relay_legacy_backend_client
 						.chain_get_block_hash(Some(from_block.into()))
 						.await?
 						.ok_or_else(|| anyhow!("No hash found for block: {:?}", from_block))?;
@@ -470,8 +475,8 @@ where
 										common_ancestor_block_number
 									)
 								})?;
-						let unknown_header =
-							self.relay_client.header(Some(unknown_header_hash)).await?.ok_or_else(
+						let unknown_header = relay_legacy_backend_client
+							.chain_get_header(Some(unknown_header_hash)).await?.ok_or_else(
 								|| anyhow!("No header found for hash: {:?}", unknown_header_hash),
 							)?;
 						trusted_finality_proof
@@ -502,3 +507,5 @@ where
 		Ok(())
 	}
 }
+
+

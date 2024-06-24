@@ -2180,7 +2180,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::subxt::utils::AccountId32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::frame_system::AccountInfo<
 						::core::primitive::u32,
 						runtime_types::pallet_balances::types::AccountData<::core::primitive::u128>,
@@ -2203,7 +2203,7 @@ pub mod api {
 				pub fn account_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::frame_system::AccountInfo<
 						::core::primitive::u32,
 						runtime_types::pallet_balances::types::AccountData<::core::primitive::u128>,
@@ -2226,7 +2226,7 @@ pub mod api {
 				pub fn extrinsic_count(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					::subxt::storage::address::Yes,
 					(),
@@ -2247,7 +2247,7 @@ pub mod api {
 				pub fn block_weight(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::frame_support::dispatch::PerDispatchClass<
 						runtime_types::sp_weights::weight_v2::Weight,
 					>,
@@ -2270,7 +2270,7 @@ pub mod api {
 				pub fn all_extrinsics_len(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					::subxt::storage::address::Yes,
 					(),
@@ -2292,7 +2292,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::core::primitive::u32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::subxt::utils::H256,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -2313,7 +2313,7 @@ pub mod api {
 				pub fn block_hash_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::subxt::utils::H256,
 					(),
 					::subxt::storage::address::Yes,
@@ -2335,7 +2335,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::core::primitive::u32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<::core::primitive::u8>,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -2355,7 +2355,7 @@ pub mod api {
 				pub fn extrinsic_data_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<::core::primitive::u8>,
 					(),
 					::subxt::storage::address::Yes,
@@ -2375,7 +2375,7 @@ pub mod api {
 				pub fn number(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -2395,7 +2395,7 @@ pub mod api {
 				pub fn parent_hash(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::subxt::utils::H256,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -2415,7 +2415,7 @@ pub mod api {
 				pub fn digest(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::sp_runtime::generic::digest::Digest,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -2436,7 +2436,7 @@ pub mod api {
 				pub fn events(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<
 						runtime_types::frame_system::EventRecord<
 							runtime_types::rococo_runtime::RuntimeEvent,
@@ -2461,7 +2461,7 @@ pub mod api {
 				pub fn event_count(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -2483,7 +2483,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::subxt::utils::H256>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<(::core::primitive::u32, ::core::primitive::u32)>,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -2503,7 +2503,7 @@ pub mod api {
 				pub fn event_topics_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<(::core::primitive::u32, ::core::primitive::u32)>,
 					(),
 					::subxt::storage::address::Yes,
@@ -2523,7 +2523,7 @@ pub mod api {
 				pub fn last_runtime_upgrade(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::frame_system::LastRuntimeUpgradeInfo,
 					::subxt::storage::address::Yes,
 					(),
@@ -2543,7 +2543,7 @@ pub mod api {
 				pub fn upgraded_to_u32_ref_count(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::bool,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -2563,7 +2563,7 @@ pub mod api {
 				pub fn upgraded_to_triple_ref_count(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::bool,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -2584,7 +2584,7 @@ pub mod api {
 				pub fn execution_phase(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::frame_system::Phase,
 					::subxt::storage::address::Yes,
 					(),
@@ -2847,7 +2847,7 @@ pub mod api {
 				pub fn epoch_index(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u64,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -2868,7 +2868,7 @@ pub mod api {
 				pub fn authorities(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::weak_bounded_vec::WeakBoundedVec<(
 						runtime_types::sp_consensus_babe::app::Public,
 						::core::primitive::u64,
@@ -2892,7 +2892,7 @@ pub mod api {
 				pub fn genesis_slot(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::sp_consensus_slots::Slot,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -2913,7 +2913,7 @@ pub mod api {
 				pub fn current_slot(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::sp_consensus_slots::Slot,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -2934,7 +2934,7 @@ pub mod api {
 				pub fn randomness(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					[::core::primitive::u8; 32usize],
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -2955,7 +2955,7 @@ pub mod api {
 				pub fn pending_epoch_config_change(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::sp_consensus_babe::digests::NextConfigDescriptor,
 					::subxt::storage::address::Yes,
 					(),
@@ -2976,7 +2976,7 @@ pub mod api {
 				pub fn next_randomness(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					[::core::primitive::u8; 32usize],
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -2996,7 +2996,7 @@ pub mod api {
 				pub fn next_authorities(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::weak_bounded_vec::WeakBoundedVec<(
 						runtime_types::sp_consensus_babe::app::Public,
 						::core::primitive::u64,
@@ -3020,7 +3020,7 @@ pub mod api {
 				pub fn segment_index(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -3042,7 +3042,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::core::primitive::u32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::bounded_vec::BoundedVec<
 						[::core::primitive::u8; 32usize],
 					>,
@@ -3064,7 +3064,7 @@ pub mod api {
 				pub fn under_construction_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::bounded_vec::BoundedVec<
 						[::core::primitive::u8; 32usize],
 					>,
@@ -3086,7 +3086,7 @@ pub mod api {
 				pub fn initialized(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::option::Option<runtime_types::sp_consensus_babe::digests::PreDigest>,
 					::subxt::storage::address::Yes,
 					(),
@@ -3106,7 +3106,7 @@ pub mod api {
 				pub fn author_vrf_randomness(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::option::Option<[::core::primitive::u8; 32usize]>,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -3127,7 +3127,7 @@ pub mod api {
 				pub fn epoch_start(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					(::core::primitive::u32, ::core::primitive::u32),
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -3148,7 +3148,7 @@ pub mod api {
 				pub fn lateness(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -3169,7 +3169,7 @@ pub mod api {
 				pub fn epoch_config(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::sp_consensus_babe::BabeEpochConfiguration,
 					::subxt::storage::address::Yes,
 					(),
@@ -3190,7 +3190,7 @@ pub mod api {
 				pub fn next_epoch_config(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::sp_consensus_babe::BabeEpochConfiguration,
 					::subxt::storage::address::Yes,
 					(),
@@ -3210,7 +3210,7 @@ pub mod api {
 				pub fn skipped_epochs(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::bounded_vec::BoundedVec<(
 						::core::primitive::u64,
 						::core::primitive::u32,
@@ -3331,7 +3331,7 @@ pub mod api {
 				pub fn now(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u64,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -3351,7 +3351,7 @@ pub mod api {
 				pub fn did_update(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::bool,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -3644,7 +3644,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::core::primitive::u32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					(::subxt::utils::AccountId32, ::core::primitive::u128, ::core::primitive::bool),
 					::subxt::storage::address::Yes,
 					(),
@@ -3665,7 +3665,7 @@ pub mod api {
 				pub fn accounts_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					(::subxt::utils::AccountId32, ::core::primitive::u128, ::core::primitive::bool),
 					(),
 					(),
@@ -4426,7 +4426,7 @@ pub mod api {
 				pub fn total_issuance(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u128,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -4447,7 +4447,7 @@ pub mod api {
 				pub fn inactive_issuance(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u128,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -4468,7 +4468,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::subxt::utils::AccountId32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_balances::types::AccountData<::core::primitive::u128>,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -4489,7 +4489,7 @@ pub mod api {
 				pub fn account_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_balances::types::AccountData<::core::primitive::u128>,
 					(),
 					::subxt::storage::address::Yes,
@@ -4511,7 +4511,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::subxt::utils::AccountId32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::weak_bounded_vec::WeakBoundedVec<
 						runtime_types::pallet_balances::types::BalanceLock<::core::primitive::u128>,
 					>,
@@ -4533,7 +4533,7 @@ pub mod api {
 				pub fn locks_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::weak_bounded_vec::WeakBoundedVec<
 						runtime_types::pallet_balances::types::BalanceLock<::core::primitive::u128>,
 					>,
@@ -4556,7 +4556,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::subxt::utils::AccountId32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::bounded_vec::BoundedVec<
 						runtime_types::pallet_balances::types::ReserveData<
 							[::core::primitive::u8; 8usize],
@@ -4582,7 +4582,7 @@ pub mod api {
 				pub fn reserves_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::bounded_vec::BoundedVec<
 						runtime_types::pallet_balances::types::ReserveData<
 							[::core::primitive::u8; 8usize],
@@ -4609,7 +4609,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::subxt::utils::AccountId32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::bounded_vec::BoundedVec<
 						runtime_types::pallet_balances::types::IdAmount<
 							runtime_types::rococo_runtime::RuntimeHoldReason,
@@ -4635,7 +4635,7 @@ pub mod api {
 				pub fn holds_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::bounded_vec::BoundedVec<
 						runtime_types::pallet_balances::types::IdAmount<
 							runtime_types::rococo_runtime::RuntimeHoldReason,
@@ -4662,7 +4662,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::subxt::utils::AccountId32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::bounded_vec::BoundedVec<
 						runtime_types::pallet_balances::types::IdAmount<
 							(),
@@ -4687,7 +4687,7 @@ pub mod api {
 				pub fn freezes_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::bounded_vec::BoundedVec<
 						runtime_types::pallet_balances::types::IdAmount<
 							(),
@@ -4811,7 +4811,7 @@ pub mod api {
 				pub fn next_fee_multiplier(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::sp_arithmetic::fixed_point::FixedU128,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -4832,7 +4832,7 @@ pub mod api {
 				pub fn storage_version(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_transaction_payment::Releases,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -4882,7 +4882,7 @@ pub mod api {
 				pub fn author(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::subxt::utils::AccountId32,
 					::subxt::storage::address::Yes,
 					(),
@@ -4935,7 +4935,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::subxt::utils::H256>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::sp_staking::offence::OffenceDetails<
 						::subxt::utils::AccountId32,
 						(::subxt::utils::AccountId32, ()),
@@ -4958,7 +4958,7 @@ pub mod api {
 				pub fn reports_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::sp_staking::offence::OffenceDetails<
 						::subxt::utils::AccountId32,
 						(::subxt::utils::AccountId32, ()),
@@ -4983,7 +4983,7 @@ pub mod api {
 					_0: impl ::std::borrow::Borrow<[::core::primitive::u8; 16usize]>,
 					_1: impl ::std::borrow::Borrow<[::core::primitive::u8]>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<::subxt::utils::H256>,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -5007,7 +5007,7 @@ pub mod api {
 				pub fn concurrent_reports_index_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<::subxt::utils::H256>,
 					(),
 					::subxt::storage::address::Yes,
@@ -5040,7 +5040,7 @@ pub mod api {
 				pub fn root_hash(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::subxt::utils::H256,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -5060,7 +5060,7 @@ pub mod api {
 				pub fn number_of_leaves(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u64,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -5081,7 +5081,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::core::primitive::u64>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::subxt::utils::H256,
 					::subxt::storage::address::Yes,
 					(),
@@ -5101,7 +5101,7 @@ pub mod api {
 				pub fn nodes_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::subxt::utils::H256,
 					(),
 					(),
@@ -5226,7 +5226,7 @@ pub mod api {
 				pub fn validators(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<::subxt::utils::AccountId32>,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -5247,7 +5247,7 @@ pub mod api {
 				pub fn current_index(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -5268,7 +5268,7 @@ pub mod api {
 				pub fn queued_changed(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::bool,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -5289,7 +5289,7 @@ pub mod api {
 				pub fn queued_keys(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<(
 						::subxt::utils::AccountId32,
 						runtime_types::rococo_runtime::SessionKeys,
@@ -5313,7 +5313,7 @@ pub mod api {
 				pub fn disabled_validators(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<::core::primitive::u32>,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -5334,7 +5334,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::subxt::utils::AccountId32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::rococo_runtime::SessionKeys,
 					::subxt::storage::address::Yes,
 					(),
@@ -5354,7 +5354,7 @@ pub mod api {
 				pub fn next_keys_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::rococo_runtime::SessionKeys,
 					(),
 					(),
@@ -5376,7 +5376,7 @@ pub mod api {
 					_0: impl ::std::borrow::Borrow<runtime_types::sp_core::crypto::KeyTypeId>,
 					_1: impl ::std::borrow::Borrow<[::core::primitive::u8]>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::subxt::utils::AccountId32,
 					::subxt::storage::address::Yes,
 					(),
@@ -5399,7 +5399,7 @@ pub mod api {
 				pub fn key_owner_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::subxt::utils::AccountId32,
 					(),
 					(),
@@ -5620,7 +5620,7 @@ pub mod api {
 				pub fn state(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_grandpa::StoredState<::core::primitive::u32>,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -5640,7 +5640,7 @@ pub mod api {
 				pub fn pending_change(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_grandpa::StoredPendingChange<::core::primitive::u32>,
 					::subxt::storage::address::Yes,
 					(),
@@ -5660,7 +5660,7 @@ pub mod api {
 				pub fn next_forced(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					::subxt::storage::address::Yes,
 					(),
@@ -5680,7 +5680,7 @@ pub mod api {
 				pub fn stalled(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					(::core::primitive::u32, ::core::primitive::u32),
 					::subxt::storage::address::Yes,
 					(),
@@ -5700,7 +5700,7 @@ pub mod api {
 				pub fn current_set_id(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u64,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -5722,7 +5722,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::core::primitive::u64>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					::subxt::storage::address::Yes,
 					(),
@@ -5742,7 +5742,7 @@ pub mod api {
 				pub fn set_id_session_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					(),
 					(),
@@ -5906,7 +5906,7 @@ pub mod api {
 				pub fn heartbeat_after(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -5926,7 +5926,7 @@ pub mod api {
 				pub fn keys(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::weak_bounded_vec::WeakBoundedVec<
 						runtime_types::pallet_im_online::sr25519::app_sr25519::Public,
 					>,
@@ -5951,7 +5951,7 @@ pub mod api {
 					_0: impl ::std::borrow::Borrow<::core::primitive::u32>,
 					_1: impl ::std::borrow::Borrow<::core::primitive::u32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::frame_support::traits::misc::WrapperOpaque<
 						runtime_types::pallet_im_online::BoundedOpaqueNetworkState,
 					>,
@@ -5977,7 +5977,7 @@ pub mod api {
 				pub fn received_heartbeats_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::frame_support::traits::misc::WrapperOpaque<
 						runtime_types::pallet_im_online::BoundedOpaqueNetworkState,
 					>,
@@ -6002,7 +6002,7 @@ pub mod api {
 					_0: impl ::std::borrow::Borrow<::core::primitive::u32>,
 					_1: impl ::std::borrow::Borrow<::subxt::utils::AccountId32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -6026,7 +6026,7 @@ pub mod api {
 				pub fn authored_blocks_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					(),
 					::subxt::storage::address::Yes,
@@ -7058,7 +7058,7 @@ pub mod api {
 				pub fn public_prop_count(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -7079,7 +7079,7 @@ pub mod api {
 				pub fn public_props(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::bounded_vec::BoundedVec<(
 						::core::primitive::u32,
 						runtime_types::frame_support::traits::preimages::Bounded<
@@ -7106,7 +7106,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::core::primitive::u32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					(
 						runtime_types::bounded_collections::bounded_vec::BoundedVec<
 							::subxt::utils::AccountId32,
@@ -7131,7 +7131,7 @@ pub mod api {
 				pub fn deposit_of_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					(
 						runtime_types::bounded_collections::bounded_vec::BoundedVec<
 							::subxt::utils::AccountId32,
@@ -7156,7 +7156,7 @@ pub mod api {
 				pub fn referendum_count(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -7177,7 +7177,7 @@ pub mod api {
 				pub fn lowest_unbaked(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -7198,7 +7198,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::core::primitive::u32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_democracy::types::ReferendumInfo<
 						::core::primitive::u32,
 						runtime_types::frame_support::traits::preimages::Bounded<
@@ -7225,7 +7225,7 @@ pub mod api {
 				pub fn referendum_info_of_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_democracy::types::ReferendumInfo<
 						::core::primitive::u32,
 						runtime_types::frame_support::traits::preimages::Bounded<
@@ -7253,7 +7253,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::subxt::utils::AccountId32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_democracy::vote::Voting<
 						::core::primitive::u128,
 						::subxt::utils::AccountId32,
@@ -7278,7 +7278,7 @@ pub mod api {
 				pub fn voting_of_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_democracy::vote::Voting<
 						::core::primitive::u128,
 						::subxt::utils::AccountId32,
@@ -7303,7 +7303,7 @@ pub mod api {
 				pub fn last_tabled_was_external(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::bool,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -7323,7 +7323,7 @@ pub mod api {
 				pub fn next_external(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					(
 						runtime_types::frame_support::traits::preimages::Bounded<
 							runtime_types::rococo_runtime::RuntimeCall,
@@ -7349,7 +7349,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::subxt::utils::H256>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					(
 						::core::primitive::u32,
 						runtime_types::bounded_collections::bounded_vec::BoundedVec<
@@ -7374,7 +7374,7 @@ pub mod api {
 				pub fn blacklist_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					(
 						::core::primitive::u32,
 						runtime_types::bounded_collections::bounded_vec::BoundedVec<
@@ -7400,7 +7400,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::subxt::utils::H256>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::bool,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -7421,7 +7421,7 @@ pub mod api {
 				pub fn cancellations_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::bool,
 					(),
 					::subxt::storage::address::Yes,
@@ -7445,7 +7445,7 @@ pub mod api {
 						runtime_types::pallet_democracy::types::MetadataOwner,
 					>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::subxt::utils::H256,
 					::subxt::storage::address::Yes,
 					(),
@@ -7466,7 +7466,7 @@ pub mod api {
 				pub fn metadata_of_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::subxt::utils::H256,
 					(),
 					(),
@@ -8029,7 +8029,7 @@ pub mod api {
 				pub fn proposals(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::bounded_vec::BoundedVec<
 						::subxt::utils::H256,
 					>,
@@ -8052,7 +8052,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::subxt::utils::H256>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::rococo_runtime::RuntimeCall,
 					::subxt::storage::address::Yes,
 					(),
@@ -8072,7 +8072,7 @@ pub mod api {
 				pub fn proposal_of_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::rococo_runtime::RuntimeCall,
 					(),
 					(),
@@ -8093,7 +8093,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::subxt::utils::H256>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_collective::Votes<
 						::subxt::utils::AccountId32,
 						::core::primitive::u32,
@@ -8116,7 +8116,7 @@ pub mod api {
 				pub fn voting_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_collective::Votes<
 						::subxt::utils::AccountId32,
 						::core::primitive::u32,
@@ -8139,7 +8139,7 @@ pub mod api {
 				pub fn proposal_count(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -8159,7 +8159,7 @@ pub mod api {
 				pub fn members(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<::subxt::utils::AccountId32>,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -8179,7 +8179,7 @@ pub mod api {
 				pub fn prime(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::subxt::utils::AccountId32,
 					::subxt::storage::address::Yes,
 					(),
@@ -8598,7 +8598,7 @@ pub mod api {
 				pub fn proposals(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::bounded_vec::BoundedVec<
 						::subxt::utils::H256,
 					>,
@@ -8621,7 +8621,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::subxt::utils::H256>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::rococo_runtime::RuntimeCall,
 					::subxt::storage::address::Yes,
 					(),
@@ -8641,7 +8641,7 @@ pub mod api {
 				pub fn proposal_of_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::rococo_runtime::RuntimeCall,
 					(),
 					(),
@@ -8662,7 +8662,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::subxt::utils::H256>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_collective::Votes<
 						::subxt::utils::AccountId32,
 						::core::primitive::u32,
@@ -8685,7 +8685,7 @@ pub mod api {
 				pub fn voting_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_collective::Votes<
 						::subxt::utils::AccountId32,
 						::core::primitive::u32,
@@ -8708,7 +8708,7 @@ pub mod api {
 				pub fn proposal_count(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -8728,7 +8728,7 @@ pub mod api {
 				pub fn members(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<::subxt::utils::AccountId32>,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -8748,7 +8748,7 @@ pub mod api {
 				pub fn prime(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::subxt::utils::AccountId32,
 					::subxt::storage::address::Yes,
 					(),
@@ -9131,7 +9131,7 @@ pub mod api {
 				pub fn members(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<
 						runtime_types::pallet_elections_phragmen::SeatHolder<
 							::subxt::utils::AccountId32,
@@ -9157,7 +9157,7 @@ pub mod api {
 				pub fn runners_up(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<
 						runtime_types::pallet_elections_phragmen::SeatHolder<
 							::subxt::utils::AccountId32,
@@ -9183,7 +9183,7 @@ pub mod api {
 				pub fn candidates(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<(::subxt::utils::AccountId32, ::core::primitive::u128)>,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -9203,7 +9203,7 @@ pub mod api {
 				pub fn election_rounds(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -9224,7 +9224,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::subxt::utils::AccountId32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_elections_phragmen::Voter<
 						::subxt::utils::AccountId32,
 						::core::primitive::u128,
@@ -9247,7 +9247,7 @@ pub mod api {
 				pub fn voting_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_elections_phragmen::Voter<
 						::subxt::utils::AccountId32,
 						::core::primitive::u128,
@@ -9747,7 +9747,7 @@ pub mod api {
 				pub fn members(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::bounded_vec::BoundedVec<
 						::subxt::utils::AccountId32,
 					>,
@@ -9770,7 +9770,7 @@ pub mod api {
 				pub fn prime(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::subxt::utils::AccountId32,
 					::subxt::storage::address::Yes,
 					(),
@@ -10151,7 +10151,7 @@ pub mod api {
 				pub fn proposal_count(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -10172,7 +10172,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::core::primitive::u32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_treasury::Proposal<
 						::subxt::utils::AccountId32,
 						::core::primitive::u128,
@@ -10195,7 +10195,7 @@ pub mod api {
 				pub fn proposals_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_treasury::Proposal<
 						::subxt::utils::AccountId32,
 						::core::primitive::u128,
@@ -10218,7 +10218,7 @@ pub mod api {
 				pub fn deactivated(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u128,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -10239,7 +10239,7 @@ pub mod api {
 				pub fn approvals(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::bounded_vec::BoundedVec<
 						::core::primitive::u32,
 					>,
@@ -10599,7 +10599,7 @@ pub mod api {
 						runtime_types::polkadot_runtime_common::claims::EthereumAddress,
 					>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u128,
 					::subxt::storage::address::Yes,
 					(),
@@ -10620,7 +10620,7 @@ pub mod api {
 				pub fn claims_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u128,
 					(),
 					(),
@@ -10641,7 +10641,7 @@ pub mod api {
 				pub fn total(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u128,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -10665,7 +10665,7 @@ pub mod api {
 						runtime_types::polkadot_runtime_common::claims::EthereumAddress,
 					>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					(::core::primitive::u128, ::core::primitive::u128, ::core::primitive::u32),
 					::subxt::storage::address::Yes,
 					(),
@@ -10686,7 +10686,7 @@ pub mod api {
 				pub fn vesting_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					(::core::primitive::u128, ::core::primitive::u128, ::core::primitive::u32),
 					(),
 					(),
@@ -10710,7 +10710,7 @@ pub mod api {
 						runtime_types::polkadot_runtime_common::claims::EthereumAddress,
 					>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_runtime_common::claims::StatementKind,
 					::subxt::storage::address::Yes,
 					(),
@@ -10730,7 +10730,7 @@ pub mod api {
 				pub fn signing_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_runtime_common::claims::StatementKind,
 					(),
 					(),
@@ -10751,7 +10751,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::subxt::utils::AccountId32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_runtime_common::claims::EthereumAddress,
 					::subxt::storage::address::Yes,
 					(),
@@ -10771,7 +10771,7 @@ pub mod api {
 				pub fn preclaims_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_runtime_common::claims::EthereumAddress,
 					(),
 					(),
@@ -11876,7 +11876,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::subxt::utils::AccountId32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_identity::types::Registration<::core::primitive::u128>,
 					::subxt::storage::address::Yes,
 					(),
@@ -11896,7 +11896,7 @@ pub mod api {
 				pub fn identity_of_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_identity::types::Registration<::core::primitive::u128>,
 					(),
 					(),
@@ -11917,7 +11917,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::subxt::utils::AccountId32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					(::subxt::utils::AccountId32, runtime_types::pallet_identity::types::Data),
 					::subxt::storage::address::Yes,
 					(),
@@ -11937,7 +11937,7 @@ pub mod api {
 				pub fn super_of_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					(::subxt::utils::AccountId32, runtime_types::pallet_identity::types::Data),
 					(),
 					(),
@@ -11958,7 +11958,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::subxt::utils::AccountId32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					(
 						::core::primitive::u128,
 						runtime_types::bounded_collections::bounded_vec::BoundedVec<
@@ -11984,7 +11984,7 @@ pub mod api {
 				pub fn subs_of_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					(
 						::core::primitive::u128,
 						runtime_types::bounded_collections::bounded_vec::BoundedVec<
@@ -12010,7 +12010,7 @@ pub mod api {
 				pub fn registrars(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::bounded_vec::BoundedVec<
 						::core::option::Option<
 							runtime_types::pallet_identity::types::RegistrarInfo<
@@ -12847,7 +12847,7 @@ pub mod api {
 				pub fn founder(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::subxt::utils::AccountId32,
 					::subxt::storage::address::Yes,
 					(),
@@ -12867,7 +12867,7 @@ pub mod api {
 				pub fn rules(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::subxt::utils::H256,
 					::subxt::storage::address::Yes,
 					(),
@@ -12888,7 +12888,7 @@ pub mod api {
 				pub fn candidates(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<
 						runtime_types::pallet_society::Bid<
 							::subxt::utils::AccountId32,
@@ -12914,7 +12914,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::subxt::utils::AccountId32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					(
 						::core::primitive::u128,
 						runtime_types::pallet_society::BidKind<
@@ -12941,7 +12941,7 @@ pub mod api {
 				pub fn suspended_candidates_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					(
 						::core::primitive::u128,
 						runtime_types::pallet_society::BidKind<
@@ -12968,7 +12968,7 @@ pub mod api {
 				pub fn pot(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u128,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -12988,7 +12988,7 @@ pub mod api {
 				pub fn head(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::subxt::utils::AccountId32,
 					::subxt::storage::address::Yes,
 					(),
@@ -13008,7 +13008,7 @@ pub mod api {
 				pub fn members(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<::subxt::utils::AccountId32>,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -13029,7 +13029,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::subxt::utils::AccountId32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::bool,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -13049,7 +13049,7 @@ pub mod api {
 				pub fn suspended_members_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::bool,
 					(),
 					::subxt::storage::address::Yes,
@@ -13069,7 +13069,7 @@ pub mod api {
 				pub fn bids(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<
 						runtime_types::pallet_society::Bid<
 							::subxt::utils::AccountId32,
@@ -13095,7 +13095,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::subxt::utils::AccountId32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_society::VouchingStatus,
 					::subxt::storage::address::Yes,
 					(),
@@ -13116,7 +13116,7 @@ pub mod api {
 				pub fn vouching_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_society::VouchingStatus,
 					(),
 					(),
@@ -13138,7 +13138,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::subxt::utils::AccountId32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<(::core::primitive::u32, ::core::primitive::u128)>,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -13158,7 +13158,7 @@ pub mod api {
 				pub fn payouts_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<(::core::primitive::u32, ::core::primitive::u128)>,
 					(),
 					::subxt::storage::address::Yes,
@@ -13179,7 +13179,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::subxt::utils::AccountId32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -13200,7 +13200,7 @@ pub mod api {
 				pub fn strikes_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					(),
 					::subxt::storage::address::Yes,
@@ -13223,7 +13223,7 @@ pub mod api {
 					_0: impl ::std::borrow::Borrow<::subxt::utils::AccountId32>,
 					_1: impl ::std::borrow::Borrow<::subxt::utils::AccountId32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_society::Vote,
 					::subxt::storage::address::Yes,
 					(),
@@ -13246,7 +13246,7 @@ pub mod api {
 				pub fn votes_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_society::Vote,
 					(),
 					(),
@@ -13266,7 +13266,7 @@ pub mod api {
 				pub fn defender(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::subxt::utils::AccountId32,
 					::subxt::storage::address::Yes,
 					(),
@@ -13287,7 +13287,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::subxt::utils::AccountId32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_society::Vote,
 					::subxt::storage::address::Yes,
 					(),
@@ -13308,7 +13308,7 @@ pub mod api {
 				pub fn defender_votes_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_society::Vote,
 					(),
 					(),
@@ -13329,7 +13329,7 @@ pub mod api {
 				pub fn max_members(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -13901,7 +13901,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::subxt::utils::AccountId32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_recovery::RecoveryConfig<
 						::core::primitive::u32,
 						::core::primitive::u128,
@@ -13927,7 +13927,7 @@ pub mod api {
 				pub fn recoverable_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_recovery::RecoveryConfig<
 						::core::primitive::u32,
 						::core::primitive::u128,
@@ -13955,7 +13955,7 @@ pub mod api {
 					_0: impl ::std::borrow::Borrow<::subxt::utils::AccountId32>,
 					_1: impl ::std::borrow::Borrow<::subxt::utils::AccountId32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_recovery::ActiveRecovery<
 						::core::primitive::u32,
 						::core::primitive::u128,
@@ -13984,7 +13984,7 @@ pub mod api {
 				pub fn active_recoveries_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_recovery::ActiveRecovery<
 						::core::primitive::u32,
 						::core::primitive::u128,
@@ -14011,7 +14011,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::subxt::utils::AccountId32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::subxt::utils::AccountId32,
 					::subxt::storage::address::Yes,
 					(),
@@ -14031,7 +14031,7 @@ pub mod api {
 				pub fn proxy_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::subxt::utils::AccountId32,
 					(),
 					(),
@@ -14347,7 +14347,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::subxt::utils::AccountId32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::bounded_vec::BoundedVec<
 						runtime_types::pallet_vesting::vesting_info::VestingInfo<
 							::core::primitive::u128,
@@ -14373,7 +14373,7 @@ pub mod api {
 				pub fn vesting_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::bounded_vec::BoundedVec<
 						runtime_types::pallet_vesting::vesting_info::VestingInfo<
 							::core::primitive::u128,
@@ -14399,7 +14399,7 @@ pub mod api {
 				pub fn storage_version(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_vesting::Releases,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -14850,7 +14850,7 @@ pub mod api {
 				pub fn incomplete_since(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					::subxt::storage::address::Yes,
 					(),
@@ -14871,7 +14871,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::core::primitive::u32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::bounded_vec::BoundedVec<
 						::core::option::Option<
 							runtime_types::pallet_scheduler::Scheduled<
@@ -14904,7 +14904,7 @@ pub mod api {
 				pub fn agenda_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::bounded_vec::BoundedVec<
 						::core::option::Option<
 							runtime_types::pallet_scheduler::Scheduled<
@@ -14938,7 +14938,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<[::core::primitive::u8; 32usize]>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					(::core::primitive::u32, ::core::primitive::u32),
 					::subxt::storage::address::Yes,
 					(),
@@ -14959,7 +14959,7 @@ pub mod api {
 				pub fn lookup_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					(::core::primitive::u32, ::core::primitive::u32),
 					(),
 					(),
@@ -15507,7 +15507,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::subxt::utils::AccountId32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					(
 						runtime_types::bounded_collections::bounded_vec::BoundedVec<
 							runtime_types::pallet_proxy::ProxyDefinition<
@@ -15536,7 +15536,7 @@ pub mod api {
 				pub fn proxies_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					(
 						runtime_types::bounded_collections::bounded_vec::BoundedVec<
 							runtime_types::pallet_proxy::ProxyDefinition<
@@ -15566,7 +15566,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::subxt::utils::AccountId32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					(
 						runtime_types::bounded_collections::bounded_vec::BoundedVec<
 							runtime_types::pallet_proxy::Announcement<
@@ -15595,7 +15595,7 @@ pub mod api {
 				pub fn announcements_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					(
 						runtime_types::bounded_collections::bounded_vec::BoundedVec<
 							runtime_types::pallet_proxy::Announcement<
@@ -15990,7 +15990,7 @@ pub mod api {
 					_0: impl ::std::borrow::Borrow<::subxt::utils::AccountId32>,
 					_1: impl ::std::borrow::Borrow<[::core::primitive::u8; 32usize]>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_multisig::Multisig<
 						::core::primitive::u32,
 						::core::primitive::u128,
@@ -16017,7 +16017,7 @@ pub mod api {
 				pub fn multisigs_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_multisig::Multisig<
 						::core::primitive::u32,
 						::core::primitive::u128,
@@ -16292,7 +16292,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::subxt::utils::H256>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_preimage::RequestStatus<
 						::subxt::utils::AccountId32,
 						::core::primitive::u128,
@@ -16316,7 +16316,7 @@ pub mod api {
 				pub fn status_for_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_preimage::RequestStatus<
 						::subxt::utils::AccountId32,
 						::core::primitive::u128,
@@ -16342,7 +16342,7 @@ pub mod api {
 					_0: impl ::std::borrow::Borrow<::subxt::utils::H256>,
 					_1: impl ::std::borrow::Borrow<::core::primitive::u32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::bounded_vec::BoundedVec<
 						::core::primitive::u8,
 					>,
@@ -16367,7 +16367,7 @@ pub mod api {
 				pub fn preimage_for_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::bounded_vec::BoundedVec<
 						::core::primitive::u8,
 					>,
@@ -16856,7 +16856,7 @@ pub mod api {
 				pub fn bounty_count(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -16878,7 +16878,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::core::primitive::u32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_bounties::Bounty<
 						::subxt::utils::AccountId32,
 						::core::primitive::u128,
@@ -16903,7 +16903,7 @@ pub mod api {
 				pub fn bounties_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_bounties::Bounty<
 						::subxt::utils::AccountId32,
 						::core::primitive::u128,
@@ -16929,7 +16929,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::core::primitive::u32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::bounded_vec::BoundedVec<
 						::core::primitive::u8,
 					>,
@@ -16951,7 +16951,7 @@ pub mod api {
 				pub fn bounty_descriptions_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::bounded_vec::BoundedVec<
 						::core::primitive::u8,
 					>,
@@ -16973,7 +16973,7 @@ pub mod api {
 				pub fn bounty_approvals(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::bounded_vec::BoundedVec<
 						::core::primitive::u32,
 					>,
@@ -17488,7 +17488,7 @@ pub mod api {
 				pub fn child_bounty_count(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -17509,7 +17509,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::core::primitive::u32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -17530,7 +17530,7 @@ pub mod api {
 				pub fn parent_child_bounties_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					(),
 					::subxt::storage::address::Yes,
@@ -17553,7 +17553,7 @@ pub mod api {
 					_0: impl ::std::borrow::Borrow<::core::primitive::u32>,
 					_1: impl ::std::borrow::Borrow<::core::primitive::u32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_child_bounties::ChildBounty<
 						::subxt::utils::AccountId32,
 						::core::primitive::u128,
@@ -17581,7 +17581,7 @@ pub mod api {
 				pub fn child_bounties_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_child_bounties::ChildBounty<
 						::subxt::utils::AccountId32,
 						::core::primitive::u128,
@@ -17607,7 +17607,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::core::primitive::u32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::bounded_vec::BoundedVec<
 						::core::primitive::u8,
 					>,
@@ -17629,7 +17629,7 @@ pub mod api {
 				pub fn child_bounty_descriptions_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::bounded_vec::BoundedVec<
 						::core::primitive::u8,
 					>,
@@ -17652,7 +17652,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::core::primitive::u32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u128,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -17672,7 +17672,7 @@ pub mod api {
 				pub fn children_curator_fees_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u128,
 					(),
 					::subxt::storage::address::Yes,
@@ -18047,7 +18047,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::subxt::utils::H256>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_tips::OpenTip<
 						::subxt::utils::AccountId32,
 						::core::primitive::u128,
@@ -18072,7 +18072,7 @@ pub mod api {
 				pub fn tips_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_tips::OpenTip<
 						::subxt::utils::AccountId32,
 						::core::primitive::u128,
@@ -18098,7 +18098,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::subxt::utils::H256>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<::core::primitive::u8>,
 					::subxt::storage::address::Yes,
 					(),
@@ -18119,7 +18119,7 @@ pub mod api {
 				pub fn reasons_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<::core::primitive::u8>,
 					(),
 					(),
@@ -18614,7 +18614,7 @@ pub mod api {
 				pub fn queue_totals(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::bounded_vec::BoundedVec<(
 						::core::primitive::u32,
 						::core::primitive::u128,
@@ -18638,7 +18638,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::core::primitive::u32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::bounded_vec::BoundedVec<
 						runtime_types::pallet_nis::pallet::Bid<
 							::core::primitive::u128,
@@ -18664,7 +18664,7 @@ pub mod api {
 				pub fn queues_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::bounded_vec::BoundedVec<
 						runtime_types::pallet_nis::pallet::Bid<
 							::core::primitive::u128,
@@ -18690,7 +18690,7 @@ pub mod api {
 				pub fn summary(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_nis::pallet::SummaryRecord<
 						::core::primitive::u32,
 						::core::primitive::u128,
@@ -18715,7 +18715,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::core::primitive::u32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_nis::pallet::ReceiptRecord<
 						::subxt::utils::AccountId32,
 						::core::primitive::u32,
@@ -18739,7 +18739,7 @@ pub mod api {
 				pub fn receipts_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_nis::pallet::ReceiptRecord<
 						::subxt::utils::AccountId32,
 						::core::primitive::u32,
@@ -19637,7 +19637,7 @@ pub mod api {
 				pub fn total_issuance(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u128,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -19658,7 +19658,7 @@ pub mod api {
 				pub fn inactive_issuance(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u128,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -19679,7 +19679,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::subxt::utils::AccountId32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_balances::types::AccountData<::core::primitive::u128>,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -19700,7 +19700,7 @@ pub mod api {
 				pub fn account_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_balances::types::AccountData<::core::primitive::u128>,
 					(),
 					::subxt::storage::address::Yes,
@@ -19722,7 +19722,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::subxt::utils::AccountId32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::weak_bounded_vec::WeakBoundedVec<
 						runtime_types::pallet_balances::types::BalanceLock<::core::primitive::u128>,
 					>,
@@ -19744,7 +19744,7 @@ pub mod api {
 				pub fn locks_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::weak_bounded_vec::WeakBoundedVec<
 						runtime_types::pallet_balances::types::BalanceLock<::core::primitive::u128>,
 					>,
@@ -19767,7 +19767,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::subxt::utils::AccountId32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::bounded_vec::BoundedVec<
 						runtime_types::pallet_balances::types::ReserveData<
 							[::core::primitive::u8; 8usize],
@@ -19793,7 +19793,7 @@ pub mod api {
 				pub fn reserves_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::bounded_vec::BoundedVec<
 						runtime_types::pallet_balances::types::ReserveData<
 							[::core::primitive::u8; 8usize],
@@ -19820,7 +19820,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::subxt::utils::AccountId32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::bounded_vec::BoundedVec<
 						runtime_types::pallet_balances::types::IdAmount<
 							(),
@@ -19846,7 +19846,7 @@ pub mod api {
 				pub fn holds_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::bounded_vec::BoundedVec<
 						runtime_types::pallet_balances::types::IdAmount<
 							(),
@@ -19873,7 +19873,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::subxt::utils::AccountId32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::bounded_vec::BoundedVec<
 						runtime_types::pallet_balances::types::IdAmount<
 							(),
@@ -19898,7 +19898,7 @@ pub mod api {
 				pub fn freezes_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::bounded_vec::BoundedVec<
 						runtime_types::pallet_balances::types::IdAmount<
 							(),
@@ -21455,7 +21455,7 @@ pub mod api {
 				pub fn active_config(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_runtime_parachains::configuration::HostConfiguration<
 						::core::primitive::u32,
 					>,
@@ -21489,7 +21489,7 @@ pub mod api {
 				pub fn bypass_consistency_check(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::bool,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -21529,7 +21529,7 @@ pub mod api {
 				pub fn current_session_index(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -21550,7 +21550,7 @@ pub mod api {
 				pub fn active_validator_indices(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<runtime_types::polkadot_primitives::v4::ValidatorIndex>,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -21570,7 +21570,7 @@ pub mod api {
 				pub fn active_validator_keys(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<runtime_types::polkadot_primitives::v4::validator_app::Public>,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -21740,7 +21740,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<runtime_types::polkadot_parachain::primitives::Id>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_primitives::v4::CandidateCommitments<
 						::core::primitive::u32,
 					>,
@@ -21762,7 +21762,7 @@ pub mod api {
 				pub fn pending_availability_commitments_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_primitives::v4::CandidateCommitments<
 						::core::primitive::u32,
 					>,
@@ -21847,7 +21847,7 @@ pub mod api {
 				pub fn included(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					(),
 					::subxt::storage::address::Yes,
 					(),
@@ -21867,7 +21867,7 @@ pub mod api {
 				pub fn on_chain_votes(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_primitives::v4::ScrapedOnChainVotes<
 						::subxt::utils::H256,
 					>,
@@ -21898,7 +21898,7 @@ pub mod api {
 				pub fn validator_groups(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<
 						::std::vec::Vec<runtime_types::polkadot_primitives::v4::ValidatorIndex>,
 					>,
@@ -21920,7 +21920,7 @@ pub mod api {
 				pub fn parathread_queue(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_runtime_parachains::scheduler::ParathreadClaimQueue,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -21941,7 +21941,7 @@ pub mod api {
 				pub fn availability_cores(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<
 						::core::option::Option<
 							runtime_types::polkadot_primitives::v4::CoreOccupied,
@@ -21965,7 +21965,7 @@ pub mod api {
 				pub fn parathread_claim_index(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<runtime_types::polkadot_parachain::primitives::Id>,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -21986,7 +21986,7 @@ pub mod api {
 				pub fn session_start_block(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -22006,7 +22006,7 @@ pub mod api {
 				pub fn scheduled(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<
 						runtime_types::polkadot_runtime_parachains::scheduler::CoreAssignment,
 					>,
@@ -22463,7 +22463,7 @@ pub mod api {
 						runtime_types::polkadot_parachain::primitives::ValidationCodeHash,
 					>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_runtime_parachains::paras::PvfCheckActiveVoteState<
 						::core::primitive::u32,
 					>,
@@ -22486,7 +22486,7 @@ pub mod api {
 				pub fn pvf_active_vote_map_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_runtime_parachains::paras::PvfCheckActiveVoteState<
 						::core::primitive::u32,
 					>,
@@ -22509,7 +22509,7 @@ pub mod api {
 				pub fn pvf_active_vote_list(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<
 						runtime_types::polkadot_parachain::primitives::ValidationCodeHash,
 					>,
@@ -22531,7 +22531,7 @@ pub mod api {
 				pub fn parachains(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<runtime_types::polkadot_parachain::primitives::Id>,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -22553,7 +22553,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<runtime_types::polkadot_parachain::primitives::Id>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_runtime_parachains::paras::ParaLifecycle,
 					::subxt::storage::address::Yes,
 					(),
@@ -22574,7 +22574,7 @@ pub mod api {
 				pub fn para_lifecycles_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_runtime_parachains::paras::ParaLifecycle,
 					(),
 					(),
@@ -22596,7 +22596,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<runtime_types::polkadot_parachain::primitives::Id>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_parachain::primitives::HeadData,
 					::subxt::storage::address::Yes,
 					(),
@@ -22616,7 +22616,7 @@ pub mod api {
 				pub fn heads_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_parachain::primitives::HeadData,
 					(),
 					(),
@@ -22637,7 +22637,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<runtime_types::polkadot_parachain::primitives::Id>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_parachain::primitives::ValidationCodeHash,
 					::subxt::storage::address::Yes,
 					(),
@@ -22658,7 +22658,7 @@ pub mod api {
 				pub fn current_code_hash_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_parachain::primitives::ValidationCodeHash,
 					(),
 					(),
@@ -22681,7 +22681,7 @@ pub mod api {
 					_0: impl ::std::borrow::Borrow<runtime_types::polkadot_parachain::primitives::Id>,
 					_1: impl ::std::borrow::Borrow<::core::primitive::u32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_parachain::primitives::ValidationCodeHash,
 					::subxt::storage::address::Yes,
 					(),
@@ -22704,7 +22704,7 @@ pub mod api {
 				pub fn past_code_hash_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_parachain::primitives::ValidationCodeHash,
 					(),
 					(),
@@ -22725,7 +22725,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<runtime_types::polkadot_parachain::primitives::Id>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_runtime_parachains::paras::ParaPastCodeMeta<
 						::core::primitive::u32,
 					>,
@@ -22747,7 +22747,7 @@ pub mod api {
 				pub fn past_code_meta_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_runtime_parachains::paras::ParaPastCodeMeta<
 						::core::primitive::u32,
 					>,
@@ -22769,7 +22769,7 @@ pub mod api {
 				pub fn past_code_pruning(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<(
 						runtime_types::polkadot_parachain::primitives::Id,
 						::core::primitive::u32,
@@ -22793,7 +22793,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<runtime_types::polkadot_parachain::primitives::Id>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					::subxt::storage::address::Yes,
 					(),
@@ -22814,7 +22814,7 @@ pub mod api {
 				pub fn future_code_upgrades_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					(),
 					(),
@@ -22836,7 +22836,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<runtime_types::polkadot_parachain::primitives::Id>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_parachain::primitives::ValidationCodeHash,
 					::subxt::storage::address::Yes,
 					(),
@@ -22856,7 +22856,7 @@ pub mod api {
 				pub fn future_code_hash_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_parachain::primitives::ValidationCodeHash,
 					(),
 					(),
@@ -22877,7 +22877,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<runtime_types::polkadot_parachain::primitives::Id>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_primitives::v4::UpgradeGoAhead,
 					::subxt::storage::address::Yes,
 					(),
@@ -22898,7 +22898,7 @@ pub mod api {
 				pub fn upgrade_go_ahead_signal_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_primitives::v4::UpgradeGoAhead,
 					(),
 					(),
@@ -22920,7 +22920,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<runtime_types::polkadot_parachain::primitives::Id>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_primitives::v4::UpgradeRestriction,
 					::subxt::storage::address::Yes,
 					(),
@@ -22941,7 +22941,7 @@ pub mod api {
 				pub fn upgrade_restriction_signal_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_primitives::v4::UpgradeRestriction,
 					(),
 					(),
@@ -22962,7 +22962,7 @@ pub mod api {
 				pub fn upgrade_cooldowns(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<(
 						runtime_types::polkadot_parachain::primitives::Id,
 						::core::primitive::u32,
@@ -22986,7 +22986,7 @@ pub mod api {
 				pub fn upcoming_upgrades(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<(
 						runtime_types::polkadot_parachain::primitives::Id,
 						::core::primitive::u32,
@@ -23011,7 +23011,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::core::primitive::u32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<runtime_types::polkadot_parachain::primitives::Id>,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -23032,7 +23032,7 @@ pub mod api {
 				pub fn actions_queue_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<runtime_types::polkadot_parachain::primitives::Id>,
 					(),
 					::subxt::storage::address::Yes,
@@ -23054,7 +23054,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<runtime_types::polkadot_parachain::primitives::Id>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_runtime_parachains::paras::ParaGenesisArgs,
 					::subxt::storage::address::Yes,
 					(),
@@ -23074,7 +23074,7 @@ pub mod api {
 				pub fn upcoming_paras_genesis_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_runtime_parachains::paras::ParaGenesisArgs,
 					(),
 					(),
@@ -23097,7 +23097,7 @@ pub mod api {
 						runtime_types::polkadot_parachain::primitives::ValidationCodeHash,
 					>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -23118,7 +23118,7 @@ pub mod api {
 				pub fn code_by_hash_refs_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					(),
 					::subxt::storage::address::Yes,
@@ -23142,7 +23142,7 @@ pub mod api {
 						runtime_types::polkadot_parachain::primitives::ValidationCodeHash,
 					>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_parachain::primitives::ValidationCode,
 					::subxt::storage::address::Yes,
 					(),
@@ -23162,7 +23162,7 @@ pub mod api {
 				pub fn code_by_hash_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_parachain::primitives::ValidationCode,
 					(),
 					(),
@@ -23256,7 +23256,7 @@ pub mod api {
 				pub fn has_initialized(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					(),
 					::subxt::storage::address::Yes,
 					(),
@@ -23297,7 +23297,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<runtime_types::polkadot_parachain::primitives::Id>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<
 						runtime_types::polkadot_core_primitives::InboundDownwardMessage<
 							::core::primitive::u32,
@@ -23321,7 +23321,7 @@ pub mod api {
 				pub fn downward_message_queues_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<
 						runtime_types::polkadot_core_primitives::InboundDownwardMessage<
 							::core::primitive::u32,
@@ -23346,7 +23346,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<runtime_types::polkadot_parachain::primitives::Id>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::subxt::utils::H256,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -23366,7 +23366,7 @@ pub mod api {
 				pub fn downward_message_queue_heads_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::subxt::utils::H256,
 					(),
 					::subxt::storage::address::Yes,
@@ -23387,7 +23387,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<runtime_types::polkadot_parachain::primitives::Id>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::sp_arithmetic::fixed_point::FixedU128,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -23407,7 +23407,7 @@ pub mod api {
 				pub fn delivery_fee_factor_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::sp_arithmetic::fixed_point::FixedU128,
 					(),
 					::subxt::storage::address::Yes,
@@ -23837,7 +23837,7 @@ pub mod api {
 						runtime_types::polkadot_parachain::primitives::HrmpChannelId,
 					>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_runtime_parachains::hrmp::HrmpOpenChannelRequest,
 					::subxt::storage::address::Yes,
 					(),
@@ -23857,7 +23857,7 @@ pub mod api {
 				pub fn hrmp_open_channel_requests_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_runtime_parachains::hrmp::HrmpOpenChannelRequest,
 					(),
 					(),
@@ -23877,7 +23877,7 @@ pub mod api {
 				pub fn hrmp_open_channel_requests_list(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<runtime_types::polkadot_parachain::primitives::HrmpChannelId>,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -23899,7 +23899,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<runtime_types::polkadot_parachain::primitives::Id>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -23919,7 +23919,7 @@ pub mod api {
 				pub fn hrmp_open_channel_request_count_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					(),
 					::subxt::storage::address::Yes,
@@ -23940,7 +23940,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<runtime_types::polkadot_parachain::primitives::Id>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -23960,7 +23960,7 @@ pub mod api {
 				pub fn hrmp_accepted_channel_request_count_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					(),
 					::subxt::storage::address::Yes,
@@ -23983,7 +23983,7 @@ pub mod api {
 						runtime_types::polkadot_parachain::primitives::HrmpChannelId,
 					>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					(),
 					::subxt::storage::address::Yes,
 					(),
@@ -24003,7 +24003,7 @@ pub mod api {
 				pub fn hrmp_close_channel_requests_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					(),
 					(),
 					(),
@@ -24023,7 +24023,7 @@ pub mod api {
 				pub fn hrmp_close_channel_requests_list(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<runtime_types::polkadot_parachain::primitives::HrmpChannelId>,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -24044,7 +24044,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<runtime_types::polkadot_parachain::primitives::Id>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					::subxt::storage::address::Yes,
 					(),
@@ -24064,7 +24064,7 @@ pub mod api {
 				pub fn hrmp_watermarks_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					(),
 					(),
@@ -24087,7 +24087,7 @@ pub mod api {
 						runtime_types::polkadot_parachain::primitives::HrmpChannelId,
 					>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_runtime_parachains::hrmp::HrmpChannel,
 					::subxt::storage::address::Yes,
 					(),
@@ -24108,7 +24108,7 @@ pub mod api {
 				pub fn hrmp_channels_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_runtime_parachains::hrmp::HrmpChannel,
 					(),
 					(),
@@ -24130,7 +24130,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<runtime_types::polkadot_parachain::primitives::Id>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<runtime_types::polkadot_parachain::primitives::Id>,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -24151,7 +24151,7 @@ pub mod api {
 				pub fn hrmp_ingress_channels_index_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<runtime_types::polkadot_parachain::primitives::Id>,
 					(),
 					::subxt::storage::address::Yes,
@@ -24173,7 +24173,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<runtime_types::polkadot_parachain::primitives::Id>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<runtime_types::polkadot_parachain::primitives::Id>,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -24194,7 +24194,7 @@ pub mod api {
 				pub fn hrmp_egress_channels_index_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<runtime_types::polkadot_parachain::primitives::Id>,
 					(),
 					::subxt::storage::address::Yes,
@@ -24218,7 +24218,7 @@ pub mod api {
 						runtime_types::polkadot_parachain::primitives::HrmpChannelId,
 					>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<
 						runtime_types::polkadot_core_primitives::InboundHrmpMessage<
 							::core::primitive::u32,
@@ -24242,7 +24242,7 @@ pub mod api {
 				pub fn hrmp_channel_contents_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<
 						runtime_types::polkadot_core_primitives::InboundHrmpMessage<
 							::core::primitive::u32,
@@ -24267,7 +24267,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<runtime_types::polkadot_parachain::primitives::Id>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<(
 						::core::primitive::u32,
 						::std::vec::Vec<runtime_types::polkadot_parachain::primitives::Id>,
@@ -24290,7 +24290,7 @@ pub mod api {
 				pub fn hrmp_channel_digests_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<(
 						::core::primitive::u32,
 						::std::vec::Vec<runtime_types::polkadot_parachain::primitives::Id>,
@@ -24322,7 +24322,7 @@ pub mod api {
 				pub fn assignment_keys_unsafe(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<runtime_types::polkadot_primitives::v4::assignment_app::Public>,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -24342,7 +24342,7 @@ pub mod api {
 				pub fn earliest_stored_session(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -24363,7 +24363,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::core::primitive::u32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_primitives::v4::SessionInfo,
 					::subxt::storage::address::Yes,
 					(),
@@ -24383,7 +24383,7 @@ pub mod api {
 				pub fn sessions_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_primitives::v4::SessionInfo,
 					(),
 					(),
@@ -24404,7 +24404,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::core::primitive::u32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<::subxt::utils::AccountId32>,
 					::subxt::storage::address::Yes,
 					(),
@@ -24425,7 +24425,7 @@ pub mod api {
 				pub fn account_keys_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<::subxt::utils::AccountId32>,
 					(),
 					(),
@@ -24447,7 +24447,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::core::primitive::u32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_primitives::v4::executor_params::ExecutorParams,
 					::subxt::storage::address::Yes,
 					(),
@@ -24467,7 +24467,7 @@ pub mod api {
 				pub fn session_executor_params_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_primitives::v4::executor_params::ExecutorParams,
 					(),
 					(),
@@ -24591,7 +24591,7 @@ pub mod api {
 				pub fn last_pruned_session(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					::subxt::storage::address::Yes,
 					(),
@@ -24616,7 +24616,7 @@ pub mod api {
 						runtime_types::polkadot_core_primitives::CandidateHash,
 					>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_primitives::v4::DisputeState<::core::primitive::u32>,
 					::subxt::storage::address::Yes,
 					(),
@@ -24640,7 +24640,7 @@ pub mod api {
 				pub fn disputes_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_primitives::v4::DisputeState<::core::primitive::u32>,
 					(),
 					(),
@@ -24665,7 +24665,7 @@ pub mod api {
 						runtime_types::polkadot_core_primitives::CandidateHash,
 					>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<runtime_types::polkadot_primitives::v4::ValidatorIndex>,
 					::subxt::storage::address::Yes,
 					(),
@@ -24689,7 +24689,7 @@ pub mod api {
 				pub fn backers_on_disputes_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<runtime_types::polkadot_primitives::v4::ValidatorIndex>,
 					(),
 					(),
@@ -24714,7 +24714,7 @@ pub mod api {
 						runtime_types::polkadot_core_primitives::CandidateHash,
 					>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					::subxt::storage::address::Yes,
 					(),
@@ -24738,7 +24738,7 @@ pub mod api {
 				pub fn included_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					(),
 					(),
@@ -24759,7 +24759,7 @@ pub mod api {
 				pub fn frozen(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::option::Option<::core::primitive::u32>,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -24841,7 +24841,7 @@ pub mod api {
 						runtime_types::polkadot_core_primitives::CandidateHash,
 					>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_runtime_parachains::disputes::slashing::PendingSlashes,
 					::subxt::storage::address::Yes,
 					(),
@@ -24865,7 +24865,7 @@ pub mod api {
 				pub fn unapplied_slashes_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_runtime_parachains::disputes::slashing::PendingSlashes,
 					(),
 					(),
@@ -24887,7 +24887,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::core::primitive::u32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					::subxt::storage::address::Yes,
 					(),
@@ -24907,7 +24907,7 @@ pub mod api {
 				pub fn validator_set_counts_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					(),
 					(),
@@ -25121,7 +25121,7 @@ pub mod api {
 				pub fn service_head(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_runtime_parachains::inclusion::AggregateMessageOrigin,
 					::subxt::storage::address::Yes,
 					(),
@@ -25144,7 +25144,7 @@ pub mod api {
 					_0 : impl :: std :: borrow :: Borrow < runtime_types :: polkadot_runtime_parachains :: inclusion :: AggregateMessageOrigin >,
 					_1: impl ::std::borrow::Borrow<::core::primitive::u32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_message_queue::Page<::core::primitive::u32>,
 					::subxt::storage::address::Yes,
 					(),
@@ -25168,7 +25168,7 @@ pub mod api {
 				pub fn pages_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_message_queue::Page<::core::primitive::u32>,
 					(),
 					(),
@@ -25638,7 +25638,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<runtime_types::polkadot_parachain::primitives::Id>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_parachain::primitives::Id,
 					::subxt::storage::address::Yes,
 					(),
@@ -25658,7 +25658,7 @@ pub mod api {
 				pub fn pending_swap_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_parachain::primitives::Id,
 					(),
 					(),
@@ -25679,7 +25679,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<runtime_types::polkadot_parachain::primitives::Id>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_runtime_common::paras_registrar::ParaInfo<
 						::subxt::utils::AccountId32,
 						::core::primitive::u128,
@@ -25702,7 +25702,7 @@ pub mod api {
 				pub fn paras_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_runtime_common::paras_registrar::ParaInfo<
 						::subxt::utils::AccountId32,
 						::core::primitive::u128,
@@ -25725,7 +25725,7 @@ pub mod api {
 				pub fn next_free_para_id(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_parachain::primitives::Id,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -25947,7 +25947,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<runtime_types::polkadot_parachain::primitives::Id>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<
 						::core::option::Option<(
 							::subxt::utils::AccountId32,
@@ -25973,7 +25973,7 @@ pub mod api {
 				pub fn leases_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<
 						::core::option::Option<(
 							::subxt::utils::AccountId32,
@@ -26296,7 +26296,7 @@ pub mod api {
 				pub fn auction_counter(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -26316,7 +26316,7 @@ pub mod api {
 				pub fn auction_info(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					(::core::primitive::u32, ::core::primitive::u32),
 					::subxt::storage::address::Yes,
 					(),
@@ -26338,7 +26338,7 @@ pub mod api {
 					_0: impl ::std::borrow::Borrow<::subxt::utils::AccountId32>,
 					_1: impl ::std::borrow::Borrow<runtime_types::polkadot_parachain::primitives::Id>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u128,
 					::subxt::storage::address::Yes,
 					(),
@@ -26362,7 +26362,7 @@ pub mod api {
 				pub fn reserved_amounts_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u128,
 					(),
 					(),
@@ -26384,7 +26384,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::core::primitive::u32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					[::core::option::Option<(
 						::subxt::utils::AccountId32,
 						runtime_types::polkadot_parachain::primitives::Id,
@@ -26408,7 +26408,7 @@ pub mod api {
 				pub fn winning_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					[::core::option::Option<(
 						::subxt::utils::AccountId32,
 						runtime_types::polkadot_parachain::primitives::Id,
@@ -27034,7 +27034,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<runtime_types::polkadot_parachain::primitives::Id>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_runtime_common::crowdloan::FundInfo<
 						::subxt::utils::AccountId32,
 						::core::primitive::u128,
@@ -27060,7 +27060,7 @@ pub mod api {
 				pub fn funds_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_runtime_common::crowdloan::FundInfo<
 						::subxt::utils::AccountId32,
 						::core::primitive::u128,
@@ -27086,7 +27086,7 @@ pub mod api {
 				pub fn new_raise(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<runtime_types::polkadot_parachain::primitives::Id>,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -27107,7 +27107,7 @@ pub mod api {
 				pub fn endings_count(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -27127,7 +27127,7 @@ pub mod api {
 				pub fn next_fund_index(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -28064,7 +28064,7 @@ pub mod api {
 				pub fn query_counter(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u64,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -28086,7 +28086,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::core::primitive::u64>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_xcm::pallet::QueryStatus<::core::primitive::u32>,
 					::subxt::storage::address::Yes,
 					(),
@@ -28107,7 +28107,7 @@ pub mod api {
 				pub fn queries_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_xcm::pallet::QueryStatus<::core::primitive::u32>,
 					(),
 					(),
@@ -28129,7 +28129,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::subxt::utils::H256>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -28149,7 +28149,7 @@ pub mod api {
 				pub fn asset_traps_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					(),
 					::subxt::storage::address::Yes,
@@ -28169,7 +28169,7 @@ pub mod api {
 				pub fn safe_xcm_version(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					::subxt::storage::address::Yes,
 					(),
@@ -28192,7 +28192,7 @@ pub mod api {
 					_0: impl ::std::borrow::Borrow<::core::primitive::u32>,
 					_1: impl ::std::borrow::Borrow<runtime_types::xcm::VersionedMultiLocation>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					::subxt::storage::address::Yes,
 					(),
@@ -28216,7 +28216,7 @@ pub mod api {
 				pub fn supported_version_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					(),
 					(),
@@ -28239,7 +28239,7 @@ pub mod api {
 					_0: impl ::std::borrow::Borrow<::core::primitive::u32>,
 					_1: impl ::std::borrow::Borrow<runtime_types::xcm::VersionedMultiLocation>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u64,
 					::subxt::storage::address::Yes,
 					(),
@@ -28262,7 +28262,7 @@ pub mod api {
 				pub fn version_notifiers_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u64,
 					(),
 					(),
@@ -28284,7 +28284,7 @@ pub mod api {
 					_0: impl ::std::borrow::Borrow<::core::primitive::u32>,
 					_1: impl ::std::borrow::Borrow<runtime_types::xcm::VersionedMultiLocation>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					(
 						::core::primitive::u64,
 						runtime_types::sp_weights::weight_v2::Weight,
@@ -28311,7 +28311,7 @@ pub mod api {
 				pub fn version_notify_targets_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					(
 						::core::primitive::u64,
 						runtime_types::sp_weights::weight_v2::Weight,
@@ -28335,7 +28335,7 @@ pub mod api {
 				pub fn version_discovery_queue(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::bounded_vec::BoundedVec<(
 						runtime_types::xcm::VersionedMultiLocation,
 						::core::primitive::u32,
@@ -28359,7 +28359,7 @@ pub mod api {
 				pub fn current_migration(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_xcm::pallet::VersionMigrationStage,
 					::subxt::storage::address::Yes,
 					(),
@@ -28382,7 +28382,7 @@ pub mod api {
 					_1: impl ::std::borrow::Borrow<::subxt::utils::AccountId32>,
 					_2: impl ::std::borrow::Borrow<runtime_types::xcm::VersionedAssetId>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_xcm::pallet::RemoteLockedFungibleRecord<()>,
 					::subxt::storage::address::Yes,
 					(),
@@ -28407,7 +28407,7 @@ pub mod api {
 				pub fn remote_locked_fungibles_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_xcm::pallet::RemoteLockedFungibleRecord<()>,
 					(),
 					(),
@@ -28429,7 +28429,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::subxt::utils::AccountId32>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::bounded_vec::BoundedVec<(
 						::core::primitive::u128,
 						runtime_types::xcm::VersionedMultiLocation,
@@ -28453,7 +28453,7 @@ pub mod api {
 				pub fn locked_fungibles_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::bounded_vec::BoundedVec<(
 						::core::primitive::u128,
 						runtime_types::xcm::VersionedMultiLocation,
@@ -28477,7 +28477,7 @@ pub mod api {
 				pub fn xcm_execution_suspended(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::bool,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -28612,7 +28612,7 @@ pub mod api {
 				pub fn authorities(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::bounded_vec::BoundedVec<
 						runtime_types::sp_consensus_beefy::ecdsa_crypto::Public,
 					>,
@@ -28634,7 +28634,7 @@ pub mod api {
 				pub fn validator_set_id(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u64,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -28655,7 +28655,7 @@ pub mod api {
 				pub fn next_authorities(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::bounded_collections::bounded_vec::BoundedVec<
 						runtime_types::sp_consensus_beefy::ecdsa_crypto::Public,
 					>,
@@ -28678,7 +28678,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<::core::primitive::u64>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					::subxt::storage::address::Yes,
 					(),
@@ -28698,7 +28698,7 @@ pub mod api {
 				pub fn set_id_session_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					(),
 					(),
@@ -28718,7 +28718,7 @@ pub mod api {
 				pub fn genesis_block(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::option::Option<::core::primitive::u32>,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -28781,7 +28781,7 @@ pub mod api {
 				pub fn beefy_authorities(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::sp_consensus_beefy::mmr::BeefyAuthoritySet<::subxt::utils::H256>,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -28801,7 +28801,7 @@ pub mod api {
 				pub fn beefy_next_authorities(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::sp_consensus_beefy::mmr::BeefyAuthoritySet<::subxt::utils::H256>,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -29199,7 +29199,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<runtime_types::polkadot_parachain::primitives::Id>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					(::core::primitive::u32, ::core::primitive::u32),
 					::subxt::storage::address::Yes,
 					(),
@@ -29220,7 +29220,7 @@ pub mod api {
 				pub fn permanent_slots_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					(::core::primitive::u32, ::core::primitive::u32),
 					(),
 					(),
@@ -29241,7 +29241,7 @@ pub mod api {
 				pub fn permanent_slot_count(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -29262,7 +29262,7 @@ pub mod api {
 					&self,
 					_0: impl ::std::borrow::Borrow<runtime_types::polkadot_parachain::primitives::Id>,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_runtime_common::assigned_slots::ParachainTemporarySlot<
 						::subxt::utils::AccountId32,
 						::core::primitive::u32,
@@ -29285,7 +29285,7 @@ pub mod api {
 				pub fn temporary_slots_root(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::polkadot_runtime_common::assigned_slots::ParachainTemporarySlot<
 						::subxt::utils::AccountId32,
 						::core::primitive::u32,
@@ -29308,7 +29308,7 @@ pub mod api {
 				pub fn temporary_slot_count(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -29328,7 +29328,7 @@ pub mod api {
 				pub fn active_temporary_slot_count(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::primitive::u32,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -29545,7 +29545,7 @@ pub mod api {
 				pub fn validators_to_retire(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<::subxt::utils::AccountId32>,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -29565,7 +29565,7 @@ pub mod api {
 				pub fn validators_to_add(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::std::vec::Vec<::subxt::utils::AccountId32>,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -29893,7 +29893,7 @@ pub mod api {
 				pub fn migration_process(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_state_trie_migration::pallet::MigrationTask,
 					::subxt::storage::address::Yes,
 					::subxt::storage::address::Yes,
@@ -29914,7 +29914,7 @@ pub mod api {
 				pub fn auto_limits(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::core::option::Option<
 						runtime_types::pallet_state_trie_migration::pallet::MigrationLimits,
 					>,
@@ -29937,7 +29937,7 @@ pub mod api {
 				pub fn signed_migration_max_limits(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					runtime_types::pallet_state_trie_migration::pallet::MigrationLimits,
 					::subxt::storage::address::Yes,
 					(),
@@ -30186,7 +30186,7 @@ pub mod api {
 				pub fn key(
 					&self,
 				) -> ::subxt::storage::address::Address<
-					::subxt::storage::address::StaticStorageMapKey,
+					::subxt::storage::StaticStorageMapKey,
 					::subxt::utils::AccountId32,
 					::subxt::storage::address::Yes,
 					(),

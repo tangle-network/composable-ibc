@@ -112,10 +112,10 @@ define_runtime_storage!(
 	relaychain::api::storage().paras().parachains(),
 	relaychain::api::storage().grandpa().current_set_id(),
 	unimplemented("relaychain::api::storage().beefy().validator_set_id()"),
-	unimplemented::<Address<StaticStorageMapKey, (), Yes, Yes, ()>>(
+	unimplemented::<dyn Address<StaticStorageMapKey, (), Yes, Yes, ()>>(
 		"relaychain::api::storage().beefy().authorities()"
 	),
-	unimplemented::<Address<StaticStorageMapKey, (), Yes, Yes, ()>>(
+	unimplemented::<dyn Address<StaticStorageMapKey, (), Yes, Yes, ()>>(
 		"relaychain::api::storage().mmr_leaf().beefy_next_authorities()"
 	),
 	relaychain::api::storage().babe().epoch_start()
@@ -205,7 +205,7 @@ impl light_client_common::config::Config for PicassoKusamaConfig {
 }
 
 impl subxt::Config for PicassoKusamaConfig {
-	type Index = u32;
+	type AssetId = u32;
 	type Hash = H256;
 	type Hasher = subxt::config::substrate::BlakeTwo256;
 	type AccountId = AccountId32;

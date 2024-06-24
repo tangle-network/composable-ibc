@@ -60,7 +60,7 @@ use ics11_beefy::{
 	consensus_state::ConsensusState as BeefyConsensusState,
 };
 use jsonrpsee_ws_client::WsClientBuilder;
-use light_client_common::config::{AsInner, RuntimeStorage};
+use light_client_common::config::{AsInner, RuntimeStorage };
 use pallet_ibc::light_clients::{AnyClientState, AnyConsensusState, HostFunctionsManager};
 use parity_scale_codec::Decode;
 use sc_keystore::LocalKeystore;
@@ -76,6 +76,7 @@ use subxt::{
 	backend::{legacy::LegacyRpcMethods, rpc::RpcClient},
 	config::Header,
 };
+
 use tokio::sync::Mutex as AsyncMutex;
 
 /// Implements the [`crate::Chain`] trait for parachains.
@@ -213,7 +214,7 @@ where
 		);
 
 		let para_rpc_client = RpcClient::from_url(config.parachain_rpc_url.clone()).await?;
-		let relay_rpc_client = RpcClient::from_url(config.relay_chain_rpc_url).await?;
+		let relay_rpc_client = RpcClient::from_url(config.relay_chain_rpc_url.clone()).await?;
 
 		let para_client = subxt::OnlineClient::from_rpc_client(para_rpc_client.clone()).await?;
 
@@ -252,7 +253,7 @@ where
 		Ok(Self {
 			name: config.name,
 			parachain_rpc_url: config.parachain_rpc_url,
-			relay_chain_rpc_url: config.relay_chain_rpc_url,
+			relay_chain_rpc_url: config.relay_chain_rpc_url.clone(),
 			relay_rpc_client,
 			para_rpc_client,
 			para_client,
@@ -324,8 +325,9 @@ where
 		u32: From<<<T as subxt::Config>::Header as Header>::Number>,
 		<<T as subxt::Config>::Header as Header>::Number: From<u32>,
 		<T as subxt::Config>::Header: Decode,
+		
 	{
-		let client_wrapper = Prover {
+		let client_wrapper: Prover<T>  = Prover {
 			relay_rpc_client: self.relay_rpc_client.clone(),
 			para_rpc_client: self.para_rpc_client.clone(),
 			para_id: self.para_id,
@@ -357,7 +359,7 @@ where
 		<<T as subxt::Config>::Header as Header>::Number: Ord + sp_runtime::traits::Zero,
 		<T as subxt::Config>::Header: Decode,
 	{
-		let client_wrapper = Prover {
+		let client_wrapper: Prover<T> = Prover {
 			relay_rpc_client: self.relay_rpc_client.clone(),
 			para_rpc_client: self.para_rpc_client.clone(),
 			para_id: self.para_id,
@@ -403,7 +405,7 @@ where
 			sp_consensus_beefy::ecdsa_crypto::Signature,
 		>,
 	) -> Result<MmrUpdateProof, Error> {
-		let prover = Prover {
+		let prover: Prover<T> = Prover {
 			relay_rpc_client: self.relay_rpc_client.clone(),
 			para_rpc_client: self.para_rpc_client.clone(),
 			para_id: self.para_id,
@@ -422,15 +424,15 @@ where
 	///
 	/// We retry sending the transaction up to 5 times in the case where the transaction pool might
 	/// reject the transaction because of conflicting nonces.
-	pub async fn submit_call<C: TxPayload>(&self, call: C) -> Result<(T::Hash, T::Hash), Error> {
+	pub async fn submit_call<C: subxt::tx::Payload>(&self, call: C) -> Result<(T::Hash, T::Hash), Error> {
 		// Try extrinsic submission five times in case of failures
 		let mut count = 0;
 		let progress = loop {
 			if count == 10 {
 				Err(Error::Custom("Failed to submit extrinsic after 5 tries".to_string()))?
 			}
-
-			let other_params = T::custom_extrinsic_params(&self.para_client).await?;
+			// Todo: Handle unwrap
+			let other_params = T::custom_extrinsic_params(&self.para_client).await.unwrap();
 
 			let res = {
 				let signer = ExtrinsicSigner::<T, Self>::new(
@@ -454,7 +456,7 @@ where
 		};
 
 		let tx_in_block =
-			tokio::time::timeout(WAIT_FOR_IN_BLOCK_TIMEOUT, progress.wait_for_in_block())
+			tokio::time::timeout(WAIT_FOR_IN_BLOCK_TIMEOUT, progress.wait_for_finalized())
 				.await
 				.map_err(|e| {
 					Error::from(format!("[submit_call] Failed to wait for in block due to {:?}", e))
@@ -507,7 +509,8 @@ where
 		use ibc::core::ics24_host::identifier::ChainId;
 		let api = self.relay_client.storage();
 		let para_client_api = self.para_client.storage();
-		let client_wrapper = Prover {
+
+		let client_wrapper: Prover<T> = Prover {
 			relay_rpc_client: self.relay_rpc_client.clone(),
 			para_rpc_client: self.para_rpc_client.clone(),
 			para_id: self.para_id,
@@ -619,7 +622,7 @@ where
 
 			let heads_addr = T::Storage::paras_heads(self.para_id);
 			let head_data = <T::Storage as RuntimeStorage>::HeadData::from_inner(
-				api.at(light_client_state.latest_relay_hash.into())
+				api.at(T::Hash::from(light_client_state.latest_relay_hash))
 					.fetch(&heads_addr)
 					.await?
 					.ok_or_else(|| {

@@ -142,7 +142,7 @@ define_runtime_storage!(
 			relaychain::api::storage().beefy().authorities()
 		}
 		#[cfg(not(feature = "composable-beefy"))]
-		unimplemented::<Address<StaticStorageMapKey, (), Yes, Yes, ()>>(
+		unimplemented::<dyn Address<StaticStorageMapKey, (), Yes, Yes, ()>>(
 			"relaychain::api::storage().beefy().authorities()",
 		)
 	},
@@ -152,7 +152,7 @@ define_runtime_storage!(
 			relaychain::api::storage().mmr_leaf().beefy_next_authorities()
 		}
 		#[cfg(not(feature = "composable-beefy"))]
-		unimplemented::<Address<StaticStorageMapKey, (), Yes, Yes, ()>>(
+		unimplemented::<dyn Address<StaticStorageMapKey, (), Yes, Yes, ()>>(
 			"relaychain::api::storage().mmr_leaf().beefy_next_authorities()",
 		)
 	},
@@ -241,7 +241,7 @@ impl light_client_common::config::Config for ComposableConfig {
 }
 
 impl subxt::Config for ComposableConfig {
-	type Index = u32;
+	type AssetId = u32;
 	type Hash = H256;
 	type Hasher = subxt::config::substrate::BlakeTwo256;
 	type AccountId = AccountId32;

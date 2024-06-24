@@ -155,12 +155,13 @@ where
 		<T as subxt::Config>::Header: Decode,
 	{
 		use sp_consensus_grandpa::AuthorityList;
-		let latest_relay_hash = LegacyRpcMethods::<T>::new(self.relay_rpc_client.clone())
+		let relay_legacy_backend_client = LegacyRpcMethods::<T>::new(self.relay_rpc_client.clone());
+		let latest_relay_hash = relay_legacy_backend_client
 			.chain_get_finalized_head()
 			.await
 			.unwrap();
 		log::debug!(target: "hyperspace", "Latest relay hash: {:?}", latest_relay_hash);
-		let header = LegacyRpcMethods::<T>::new(self.relay_rpc_client.clone())
+		let header = relay_legacy_backend_client
 			.chain_get_header(Some(latest_relay_hash))
 			.await
 			.unwrap()

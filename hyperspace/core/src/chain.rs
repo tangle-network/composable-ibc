@@ -92,10 +92,7 @@ impl From<String> for AnyError {
 }
 
 chains! {
-	Parachain(ParachainClientConfig, ParachainClient<DefaultConfig>),
-	// Dali(ParachainClientConfig, ParachainClient<DaliConfig>),
 	Composable(ParachainClientConfig, ParachainClient<ComposableConfig>),
-	PicassoRococo(ParachainClientConfig, ParachainClient<PicassoRococoConfig>),
 	PicassoKusama(ParachainClientConfig, ParachainClient<PicassoKusamaConfig>),
 	#[cfg(feature = "cosmos")]
 	Cosmos(CosmosClientConfig, CosmosClient<DefaultConfig>),

@@ -177,7 +177,6 @@ where
 	where
 		u32: From<<<T as Config>::Header as Header>::Number>,
 		<<T as Config>::Header as Header>::Number: From<u32>,
-		<T as Config>::Header: Decode,
 	{
 		let subxt_block_number: subxt::backend::legacy::rpc_methods::BlockNumber =
 			commitment_block_number.into();
@@ -246,7 +245,6 @@ where
 	where
 		<<T as Config>::Header as Header>::Number: Ord + sp_runtime::traits::Zero,
 		u32: From<<<T as Config>::Header as Header>::Number>,
-		<T as subxt::Config>::Header: Decode,
 	{
 		let legacy_rpc_methods = LegacyRpcMethods::<T>::new(self.relay_rpc_client.clone());
 		let header_numbers = header_numbers.into_iter().map(From::from).collect();

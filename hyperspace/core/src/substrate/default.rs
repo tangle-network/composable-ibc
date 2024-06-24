@@ -47,16 +47,16 @@ use subxt::{
 };
 
 pub mod parachain_subxt {
-	#[cfg(feature = "build-metadata-from-ws")]
-	include!(concat!(env!("OUT_DIR"), "/parachain.rs"));
+	// #[cfg(feature = "build-metadata-from-ws")]
+	// include!(concat!(env!("OUT_DIR"), "/parachain.rs"));
 
 	#[cfg(not(feature = "build-metadata-from-ws"))]
 	pub use subxt_generated::default::parachain::*;
 }
 
 pub mod relaychain {
-	#[cfg(feature = "build-metadata-from-ws")]
-	include!(concat!(env!("OUT_DIR"), "/polkadot.rs"));
+	// #[cfg(feature = "build-metadata-from-ws")]
+	// include!(concat!(env!("OUT_DIR"), "/polkadot.rs"));
 
 	#[cfg(not(feature = "build-metadata-from-ws"))]
 	pub use subxt_generated::default::relaychain::*;
@@ -185,7 +185,7 @@ impl light_client_common::config::Config for DefaultConfig {
 }
 
 impl subxt::Config for DefaultConfig {
-	type Index = u32;
+	type AssetId = u32;
 	type Hash = H256;
 	type Hasher = subxt::config::substrate::BlakeTwo256;
 	type AccountId = AccountId32;

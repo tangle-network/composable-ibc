@@ -38,6 +38,7 @@ use sp_runtime::{
 };
 use std::{collections::BTreeMap, fmt::Display, pin::Pin, str::FromStr};
 use subxt::config::{ExtrinsicParams, Header};
+use subxt::config::DefaultExtrinsicParamsBuilder;
 
 impl<T: light_client_common::config::Config + Send + Sync> ParachainClient<T>
 where
@@ -108,14 +109,15 @@ where
 		let ext = T::Tx::sudo_sudo(call);
 		// Submit extrinsic to parachain node
 
-		let other_params = T::custom_extrinsic_params(&self.para_client).await?;
+		// Todo: Handle unwrap
+		let other_params = T::custom_extrinsic_params(&self.para_client).await.unwrap();
 
 		let _progress = self
 			.para_client
 			.tx()
 			.sign_and_submit_then_watch(&ext, &signer, other_params)
 			.await?
-			.wait_for_in_block()
+			.wait_for_finalized()
 			.await?
 			.wait_for_success()
 			.await?;
@@ -142,8 +144,8 @@ where
 	H256: From<T::Hash>,
 	BTreeMap<H256, ParachainHeaderProofs>:
 		From<BTreeMap<<T as subxt::Config>::Hash, ParachainHeaderProofs>>,
-	<T::ExtrinsicParams as ExtrinsicParams<T::Index, T::Hash>>::Params:
-		From<BaseExtrinsicParamsBuilder<T, T::Tip>> + Send + Sync,
+	<T::ExtrinsicParams as ExtrinsicParams<T>>::Params:
+		From<DefaultExtrinsicParamsBuilder<T>> + Send + Sync,
 	<T as subxt::Config>::AccountId: Send + Sync,
 	<T as subxt::Config>::Address: Send + Sync,
 	<T as light_client_common::config::Config>::AssetId: Clone,
