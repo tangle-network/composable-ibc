@@ -1,0 +1,14 @@
+[package]
+name = "hyperspace"
+version = "0.1.0"
+edition = "2021"
+authors = ["Seun Lanlege <seunlanlege@gmail.com>", "David Salami <wizdave97@gmail.com>"]
+
+[dependencies]
+tokio = { workspace = true, features = ["macros", "sync", "time", "rt-multi-thread"] }
+clap = { workspace = true, features = ["derive"] }
+anyhow = { workspace = true }
+hyperspace-core = { path = "./core" }
+toml = { workspace = true }
+
+[features]

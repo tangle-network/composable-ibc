@@ -1,0 +1,98 @@
+[package]
+name = "hyperspace-core"
+version = "0.1.0"
+edition = "2021"
+description = "Hyperspace core exports the relayer and fisherman tasks, and a Cli interface for common tasks."
+authors = [
+    "Seun Lanlege <seunlanlege@gmail.com>",
+    "David Salami <wizdave97@gmail.com>",
+]
+
+[build-dependencies]
+anyhow = { workspace = true }
+once_cell = { workspace = true }
+subxt-codegen = { package = "codegen", path = "../../utils/subxt/codegen" }
+tokio = { workspace = true, features = ["macros", "rt-multi-thread"] }
+
+[package.metadata.cargo-udeps.ignore]
+normal = ["scale-encode"]
+
+
+[dependencies]
+hyperspace-primitives = { path = "../primitives" }
+hyperspace-parachain = { path = "../parachain" }
+hyperspace-cosmos = { path = "../cosmos", optional = true }
+#near = { path = "near", package = "hyperspace-near", optional = true }
+hyperspace-metrics = { path = "../metrics" }
+
+# crates.io
+anyhow = { workspace =  true }
+futures = { workspace =  true }
+async-trait = { workspace =  true }
+log = { workspace =  true }
+env_logger = { workspace =  true }
+hex = { workspace =  true }
+tokio = { workspace = true, features = ["macros", "rt-multi-thread", "fs"] }
+parity-scale-codec = { workspace = true }
+clap = { workspace = true, features = ["derive"] }
+toml = { workspace = true }
+serde = { workspace = true }
+thiserror = { workspace = true }
+derive_more = { workspace = true, features = ["from"] }
+prometheus = { workspace = true, default-features = false }
+rand = { workspace = true }
+itertools = { workspace = true }
+scale-encode = { workspace = true }
+
+# ibc
+ibc = { workspace = true, features = [] }
+ibc-proto = { workspace = true }
+tendermint-proto = { workspace = true, default-features = false }
+ibc-rpc = { workspace = true }
+
+ics11-beefy = { workspace = true }
+#ics13-near = { path = "../../light-clients/ics13-near" }
+ics08-wasm = { workspace = true, features = ["std"] }
+light-client-common = { workspace = true }
+pallet-ibc = { workspace = true }
+pallet-ibc-ping = { workspace = true }
+ics10-grandpa = { workspace = true }
+sp-runtime = { workspace = true }
+sp-keystore = { workspace = true }
+sp-core = { workspace = true }
+sp-consensus-beefy = { workspace = true }
+subxt = { workspace = true, features = [
+    "substrate-compat",
+] }
+subxt-generated = { path = "../../utils/subxt/generated" }
+frame-system = { workspace = true }
+frame-support = { workspace = true, default-features = false }
+prost = { workspace = true, default-features = false }
+serde_json = { workspace = true }
+
+[dev-dependencies]
+derive_more = { workspace = true }
+prost = { workspace = true }
+hyperspace-parachain = { path = "../parachain", features = [
+    "testing",
+] }
+hyperspace-cosmos = { path = "../cosmos", features = [
+    "testing",
+] }
+
+# substrate
+subxt = { workspace = true, features = [
+    "substrate-compat",
+] }
+frame-support = { workspace = true }
+sp-trie = { workspace = true }
+sp-state-machine = { workspace = true }
+sp-keyring = { workspace = true }
+
+[features]
+build-metadata-from-ws = []
+#near = ["dep:near"]
+cosmos = ["dep:hyperspace-cosmos"]
+testing = ["hyperspace-primitives/testing", "hyperspace-parachain/testing", "hyperspace-cosmos/testing"]
+default = ["cosmos"]
+composable-beefy = []

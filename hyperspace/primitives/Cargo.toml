@@ -1,0 +1,32 @@
+[package]
+name = "hyperspace-primitives"
+version = "0.1.0"
+edition = "2021"
+description = "Shared primtives for hyperspace based crates"
+authors = ["Seun Lanlege <seunlanlege@gmail.com>", "David Salami <wizdave97@gmail.com>"]
+
+[dependencies]
+# crates.io
+anyhow = { workspace = true }
+futures = { workspace = true }
+async-trait = { workspace = true }
+hex = { workspace = true }
+parity-scale-codec = { workspace = true, features = ["derive"] }
+tokio = { workspace = true, features = ["macros", "sync", "time"] }
+thiserror = { workspace = true }
+log = { workspace = true }
+rand = { workspace = true }
+serde = { workspace = true }
+
+# substrate
+subxt = { workspace = true, features = ["substrate-compat"] }
+
+# ibc
+ibc = { workspace = true, features = [] }
+ibc-proto = { workspace = true }
+pallet-ibc = { workspace = true }
+ibc-rpc = { workspace = true }
+ics08-wasm = { workspace = true }
+
+[features]
+testing = []
