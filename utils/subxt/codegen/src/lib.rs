@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use anyhow::anyhow;
 use jsonrpsee::{
 	async_client::ClientBuilder,
 	client_transport::ws::{Url, WsTransportClientBuilder},
@@ -21,7 +20,6 @@ use jsonrpsee::{
 };
 use parity_scale_codec::{Decode, Input};
 use std::{env, fs, path::Path};
-use subxt_codegen::{CratePath, DerivesRegistry, TypeSubstitutes};
 
 use subxt_metadata::Metadata;
 
@@ -41,24 +39,17 @@ pub async fn fetch_metadata_ws(url: &str) -> anyhow::Result<Vec<u8>> {
 
 pub fn codegen<I: Input>(encoded: &mut I) -> anyhow::Result<String> {
 	let metadata = <Metadata as Decode>::decode(encoded)?;
-	let generator = subxt_codegen::RuntimeGenerator::new(metadata);
-	let item_mod = syn::parse_quote!(
-		pub mod api {}
-	);
-	let crate_path = CratePath::default();
+	let mut builder = subxt_codegen::CodegenBuilder::new();
+
 	// add any derives you want here:
 	let p = Vec::<String>::new()
 		.iter()
 		.map(|raw| syn::parse_str(raw))
 		.collect::<Result<Vec<_>, _>>()?;
-	// let mut derives = DerivesRegistry::new();
-	let mut derives = DerivesRegistry::with_default_derives(&crate_path);
-	derives.extend_for_all(p, []);
-	let type_subsitutes = TypeSubstitutes::with_default_substitutes(&crate_path);
+	builder.set_additional_global_derives(p);
 
-	let runtime_api = generator
-		.generate_runtime(item_mod, derives, type_subsitutes, crate_path, false)
-		.map_err(|e| anyhow!("{}", e))?;
+	// generate runtime api
+	let runtime_api = builder.generate(metadata).unwrap_or_default();
 	Ok(format!("{runtime_api}"))
 }
 

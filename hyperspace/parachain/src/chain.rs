@@ -46,15 +46,14 @@ use sc_consensus_beefy_rpc::BeefyApiClient;
 use sc_consensus_grandpa_rpc::GrandpaApiClient;
 use sp_core::{twox_128, H256};
 use sp_runtime::{
+	generic::Era,
 	traits::{IdentifyAccount, One, Verify},
 	MultiSignature, MultiSigner,
 };
 use std::{collections::BTreeMap, fmt::Display, pin::Pin, sync::Arc, time::Duration};
 use subxt::{
-	config::{
-		extrinsic_params::{BaseExtrinsicParamsBuilder, Era},
-		ExtrinsicParams, Header as HeaderT, Header,
-	},
+	backend::legacy::LegacyRpcMethods,
+	config::{ExtrinsicParams, Header as HeaderT},
 	events::Phase,
 };
 use tokio::time::sleep;
@@ -75,7 +74,6 @@ impl<T: light_client_common::config::Config + Send + Sync + Clone + 'static> Cha
 	for ParachainClient<T>
 where
 	u32: From<<<T as subxt::Config>::Header as HeaderT>::Number>,
-	u32: From<<<T as subxt::Config>::Header as Header>::Number>,
 	<<T as light_client_common::config::Config>::Signature as Verify>::Signer:
 		From<MultiSigner> + IdentifyAccount<AccountId = T::AccountId>,
 	MultiSigner: From<MultiSigner>,
@@ -88,8 +86,8 @@ where
 	BTreeMap<sp_core::H256, ParachainHeaderProofs>:
 		From<BTreeMap<<T as subxt::Config>::Hash, ParachainHeaderProofs>>,
 	sp_core::H256: From<T::Hash>,
-	<T::ExtrinsicParams as ExtrinsicParams<T::Index, T::Hash>>::OtherParams:
-		From<BaseExtrinsicParamsBuilder<T, T::Tip>> + Send + Sync,
+	// <T::ExtrinsicParams as ExtrinsicParams<T>>::Params:
+	// 	From<ExtrinsicParamsBuilder<T, T::Tip>> + Send + Sync,
 	<T as subxt::Config>::AccountId: Send + Sync,
 	<T as subxt::Config>::Address: Send + Sync,
 	<T as light_client_common::config::Config>::AssetId: Clone,
@@ -116,13 +114,13 @@ where
 				.map(|msg| Any { type_url: msg.type_url.clone(), value: msg.value })
 				.collect::<Vec<_>>();
 
-			let tx_params = BaseExtrinsicParamsBuilder::new()
-				.tip(T::Tip::from(100_000u128))
-				.era(Era::Immortal, self.para_client.genesis_hash());
+			// let tx_params = ExtrinsicParamsBuilder::new()
+			// 	.tip(T::Tip::from(100_000u128))
+			// 	.era(Era::Immortal, self.para_client.genesis_hash());
 			let call = T::Tx::ibc_deliver(messages);
 			self.para_client
 				.tx()
-				.create_signed(&call, &signer, tx_params.into())
+				.create_signed(&call, &signer, ())
 				.await?
 				.encoded()
 				.to_vec()
@@ -230,10 +228,8 @@ where
 
 		let now = std::time::Instant::now();
 		let block_hash = loop {
-			let maybe_hash = self
-				.para_client
-				.rpc()
-				.block_hash(Some(host_height.revision_height.into()))
+			let maybe_hash = LegacyRpcMethods::<T>::new(self.para_rpc_client.clone())
+				.chain_get_block_hash(Some(host_height.revision_height.into()))
 				.await?;
 			match maybe_hash {
 				Some(hash) => break hash,
@@ -249,12 +245,9 @@ where
 		let mut storage_key = twox_128(b"System").to_vec();
 		storage_key.extend(twox_128(b"Events").to_vec());
 
-		let event_bytes = self
-			.para_client
-			.rpc()
-			.storage(&*storage_key, Some(block_hash))
+		let event_bytes = LegacyRpcMethods::<T>::new(self.para_rpc_client.clone())
+			.state_get_storage(&*storage_key, Some(block_hash))
 			.await?
-			.map(|e| e.0)
 			.ok_or_else(|| Error::from("No events found".to_owned()))?;
 		let events: Vec<T::EventRecord> = Decode::decode(&mut &*event_bytes)
 			.map_err(|e| Error::from(format!("Failed to decode events: {:?}", e)))?;
@@ -285,10 +278,8 @@ where
 			})
 			.ok_or_else(|| Error::from("No update client event found".to_owned()))?;
 
-		let block = self
-			.para_client
-			.rpc()
-			.block(Some(block_hash.into()))
+		let block = LegacyRpcMethods::<T>::new(self.para_rpc_client.clone())
+			.chain_get_block(Some(block_hash.into()))
 			.await?
 			.ok_or_else(|| Error::from(format!("Block not found for hash {:?}", block_hash)))?;
 
@@ -347,19 +338,21 @@ where
 	async fn reconnect(&mut self) -> anyhow::Result<()> {
 		let relay_ws_client = Arc::new(
 			WsClientBuilder::default()
-				.build(&self.relay_chain_rpc_url)
+				.build(&self.relay_chain_rpc_url.clone())
 				.await
 				.map_err(|e| Error::from(format!("Rpc Error {:?}", e)))?,
 		);
 		let para_ws_client = Arc::new(
 			WsClientBuilder::default()
-				.build(&self.parachain_rpc_url)
+				.build(&self.parachain_rpc_url.clone())
 				.await
 				.map_err(|e| Error::from(format!("Rpc Error {:?}", e)))?,
 		);
 
-		let para_client = subxt::OnlineClient::from_rpc_client(para_ws_client.clone()).await?;
-		let relay_client = subxt::OnlineClient::from_rpc_client(relay_ws_client.clone()).await?;
+		let para_rpc_client = RpcClient::new(self.parachain_rpc_url.clone());
+		let relay_rpc_client = RpcClient::new(self.relay_chain_rpc_url.clone());
+		let para_client = subxt::OnlineClient::from_rpc_client(para_rpc_client.clone()).await?;
+		let relay_client = subxt::OnlineClient::from_rpc_client(relay_rpc_client.clone()).await?;
 
 		self.relay_ws_client = relay_ws_client;
 		self.para_ws_client = para_ws_client;
@@ -385,7 +378,6 @@ impl<T: light_client_common::config::Config + Send + Sync> MisbehaviourHandler
 	for ParachainClient<T>
 where
 	u32: From<<<T as subxt::Config>::Header as HeaderT>::Number>,
-	u32: From<<<T as subxt::Config>::Header as Header>::Number>,
 	<<T as light_client_common::config::Config>::Signature as Verify>::Signer:
 		From<MultiSigner> + IdentifyAccount<AccountId = T::AccountId>,
 	MultiSigner: From<MultiSigner>,
@@ -397,8 +389,8 @@ where
 	BTreeMap<sp_core::H256, ParachainHeaderProofs>:
 		From<BTreeMap<<T as subxt::Config>::Hash, ParachainHeaderProofs>>,
 	sp_core::H256: From<T::Hash>,
-	<T::ExtrinsicParams as ExtrinsicParams<T::Index, T::Hash>>::OtherParams:
-		From<BaseExtrinsicParamsBuilder<T, T::Tip>> + Send + Sync,
+	// <T::ExtrinsicParams as ExtrinsicParams<T>>::Params:
+	// 	From<BaseExtrinsicParamsBuilder<T, T::Tip>> + Send + Sync,
 	<T as subxt::Config>::AccountId: Send + Sync,
 	<T as subxt::Config>::Address: Send + Sync,
 {

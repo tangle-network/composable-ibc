@@ -163,7 +163,7 @@ impl light_client_common::config::Config for DaliConfig {
 	async fn custom_extrinsic_params(
 		client: &OnlineClient<Self>,
 	) -> Result<
-		<Self::ExtrinsicParams as ExtrinsicParams<Self::Index, Self::Hash>>::OtherParams,
+		<Self::ExtrinsicParams as ExtrinsicParams<Self::Index, Self::Hash>>::Params,
 		Error,
 	> {
 		let params =

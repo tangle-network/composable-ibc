@@ -27,7 +27,7 @@ pub enum Error {
 	RpcError(String),
 	/// Scale codec error
 	#[error("Scale decoding error: {0}")]
-	Codec(#[from] codec::Error),
+	Codec(#[from] parity_scale_codec::Error),
 	/// Update pallet name in call definition
 	#[error("Pallet '{0}' not found in metadata, update static definition of call")]
 	PalletNotFound(&'static str),
@@ -37,6 +37,9 @@ pub enum Error {
 	/// subxt error
 	#[error("Subxt error: {0:?}")]
 	Subxt(#[from] subxt::Error),
+	/// subxt core error
+	#[error("Subxt core error: {0:?}")]
+	SubxtCore(#[from] subxt::ext::subxt_core::Error),
 	/// subxt rpc error
 	#[error("Rpc threw an error")]
 	SubxtRRpc(#[from] subxt::error::RpcError),

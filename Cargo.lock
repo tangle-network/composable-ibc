@@ -4553,6 +4553,7 @@ dependencies = [
  "grandpa-light-client-verifier",
  "grandpa-prover",
  "hex",
+ "hyperspace-core",
  "ibc",
  "ibc-derive",
  "ibc-proto",

@@ -54,13 +54,12 @@ use std::{
 	fmt::{Debug, Display},
 	time::Duration,
 };
+use subxt::backend::legacy::LegacyRpcMethods;
 
 use grandpa_prover::{
 	GrandpaJustification, GrandpaProver, JustificationNotification, PROCESS_BLOCKS_BATCH_SIZE,
 };
-use subxt::config::{
-	extrinsic_params::BaseExtrinsicParamsBuilder, ExtrinsicParams, Header as HeaderT, Header,
-};
+use subxt::config::{ExtrinsicParams, Header as HeaderT, Header};
 use tendermint_proto::Protobuf;
 use tokio::task::JoinSet;
 
@@ -113,8 +112,8 @@ impl FinalityProtocol {
 		sp_core::H256: From<T::Hash>,
 		BTreeMap<H256, ParachainHeaderProofs>:
 			From<BTreeMap<<T as subxt::Config>::Hash, ParachainHeaderProofs>>,
-		<T::ExtrinsicParams as ExtrinsicParams<T::Index, T::Hash>>::OtherParams:
-			From<BaseExtrinsicParamsBuilder<T, T::Tip>> + Send + Sync,
+		// <T::ExtrinsicParams as ExtrinsicParams<T>>::Params:
+		// 	From<BaseExtrinsicParamsBuilder<T, T::Tip>> + Send + Sync,
 		<T as subxt::Config>::AccountId: Send + Sync,
 		<T as subxt::Config>::Address: Send + Sync,
 	{
@@ -148,8 +147,8 @@ where
 	<<T as subxt::Config>::Header as Header>::Number:
 		From<u32> + Debug + Display + Ord + sp_runtime::traits::Zero + One,
 	<T as subxt::Config>::Header: Decode,
-	<T::ExtrinsicParams as ExtrinsicParams<T::Index, T::Hash>>::OtherParams:
-		From<BaseExtrinsicParamsBuilder<T, T::Tip>> + Send + Sync,
+	// <T::ExtrinsicParams as ExtrinsicParams<T>>::Params:
+	// 	From<BaseExtrinsicParamsBuilder<T, T::Tip>> + Send + Sync,
 	T::Hash: From<sp_core::H256>,
 	sp_core::H256: From<T::Hash>,
 	<T as subxt::Config>::AccountId: Send + Sync,
@@ -378,8 +377,8 @@ where
 	sp_core::H256: From<T::Hash>,
 	BTreeMap<H256, ParachainHeaderProofs>:
 		From<BTreeMap<<T as subxt::Config>::Hash, ParachainHeaderProofs>>,
-	<T::ExtrinsicParams as ExtrinsicParams<T::Index, T::Hash>>::OtherParams:
-		From<BaseExtrinsicParamsBuilder<T, T::Tip>> + Send + Sync,
+	// <T::ExtrinsicParams as ExtrinsicParams<T>>::Params:
+	// 	From<BaseExtrinsicParamsBuilder<T, T::Tip>> + Send + Sync,
 	<T as subxt::Config>::Header: Decode + Send + Sync + Clone,
 	<T as subxt::Config>::AccountId: Send + Sync,
 	<T as subxt::Config>::Address: Send + Sync,
@@ -392,15 +391,21 @@ where
 			if height % 100 == 0 {
 				log::debug!(target: "hyperspace", "Looking for a closer proof {height}/{to}...");
 			}
-			let relay_client = prover.relay_client.clone();
+			let relay_rpc_client = prover.relay_rpc_client.clone();
 			let delay = prover.rpc_call_delay.as_millis();
 			let duration = Duration::from_millis(rand::thread_rng().gen_range(1..delay) as u64);
 			join_set.spawn(async move {
 				tokio::time::sleep(duration).await;
-				let Some(hash) = relay_client.rpc().block_hash(Some(height.into())).await? else {
+				let Some(hash) = LegacyRpcMethods::<T>::new(relay_rpc_client.clone())
+					.chain_get_block_hash(Some(height.into()))
+					.await?
+				else {
 					return Ok(None)
 				};
-				let Some(block) = relay_client.rpc().block(Some(hash)).await? else {
+				let Some(block) = LegacyRpcMethods::<T>::new(relay_rpc_client.clone())
+					.chain_get_block(Some(hash))
+					.await?
+				else {
 					return Ok(None)
 				};
 				let Some(justifications) = block.justifications else { return Ok(None) };
@@ -449,8 +454,8 @@ where
 	sp_core::H256: From<T::Hash>,
 	BTreeMap<H256, ParachainHeaderProofs>:
 		From<BTreeMap<<T as subxt::Config>::Hash, ParachainHeaderProofs>>,
-	<T::ExtrinsicParams as ExtrinsicParams<T::Index, T::Hash>>::OtherParams:
-		From<BaseExtrinsicParamsBuilder<T, T::Tip>> + Send + Sync,
+	// <T::ExtrinsicParams as ExtrinsicParams<T>>::Params:
+	// 	From<BaseExtrinsicParamsBuilder<T, T::Tip>> + Send + Sync,
 	<T as subxt::Config>::Header: Decode + Send + Sync + Clone,
 	<T as subxt::Config>::AccountId: Send + Sync,
 	<T as subxt::Config>::Address: Send + Sync,
@@ -527,10 +532,8 @@ where
 			.iter()
 			.any(|h| h.number().into() == justification.commit.target_number as u64)
 	{
-		let header = prover
-			.relay_client
-			.rpc()
-			.header(Some(justification.commit.target_hash.into()))
+		let header = LegacyRpcMethods::<T>::new(prover.relay_rpc_client.clone())
+			.chain_get_header(Some(justification.commit.target_hash.into()))
 			.await
 			.unwrap()
 			.unwrap();
@@ -653,10 +656,8 @@ where
 		)
 		.await?;
 
-	let target = source
-		.relay_client
-		.rpc()
-		.header(Some(finality_proof.block.into()))
+	let target = LegacyRpcMethods::<T>::new(source.relay_rpc_client.clone())
+		.chain_get_header(Some(finality_proof.block.into()))
 		.await?
 		.ok_or_else(|| {
 			Error::from("Could not find relay chain header for justification target".to_string())

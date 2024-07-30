@@ -19,6 +19,7 @@ use frame_system::limits::BlockWeights;
 use parity_scale_codec::Decode;
 use sp_consensus_beefy::known_payloads::MMR_ROOT_ID;
 use sp_core::H256;
+use subxt::backend::{legacy::LegacyRpcMethods, rpc::RpcClient};
 
 pub fn get_updated_client_state(
 	mut client_state: ClientState,
@@ -43,9 +44,9 @@ pub fn get_updated_client_state(
 
 /// Fetch the maximum allowed extrinsic weight from a substrate node with the given client.
 pub async fn fetch_max_extrinsic_weight<T: light_client_common::config::Config>(
-	client: &subxt::OnlineClient<T>,
+	rpc_client: &RpcClient,
 ) -> Result<u64, Error> {
-	let metadata = client.rpc().metadata().await?;
+	let metadata = LegacyRpcMethods::<T>::new(rpc_client.clone()).state_get_metadata(None).await?;
 	let block_weights = metadata
 		.pallet_by_name("System")
 		.expect("System pallet should exist")

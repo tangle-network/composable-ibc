@@ -72,7 +72,11 @@ use sp_runtime::{
 	KeyTypeId, MultiSignature, MultiSigner,
 };
 use ss58_registry::Ss58AddressFormat;
-use subxt::{rpc::RpcClient, tx::TxPayload};
+use subxt::{
+	backend::{legacy::LegacyRpcMethods, rpc::RpcClient},
+	config::Header as HeaderT,
+	tx::Payload,
+};
 use tokio::sync::Mutex as AsyncMutex;
 
 /// Implements the [`crate::Chain`] trait for parachains.
@@ -209,11 +213,11 @@ where
 				.map_err(|e| Error::from(format!("Rpc Error {:?}", e)))?,
 		);
 
-		let para_client = subxt::OnlineClient::from_rpc_client(para_ws_client.clone()).await?;
-		let para_rpc_client = RpcClient::from_url(config.parachain_rpc_url).await?;
-		let relay_client = subxt::OnlineClient::from_rpc_client(relay_ws_client.clone()).await?;
-		let relay_rpc_client = RpcClient::from_url(config.relay_chain_rpc_url).await?;
-		let max_extrinsic_weight = fetch_max_extrinsic_weight(&para_client).await?;
+		let para_rpc_client = RpcClient::from_url(config.parachain_rpc_url.clone()).await?;
+		let para_client = subxt::OnlineClient::from_rpc_client(para_rpc_client.clone()).await?;
+		let relay_rpc_client = RpcClient::from_url(config.relay_chain_rpc_url.clone()).await?;
+		let relay_client = subxt::OnlineClient::from_rpc_client(relay_rpc_client.clone()).await?;
+		let max_extrinsic_weight = fetch_max_extrinsic_weight::<T>(&para_rpc_client).await?;
 
 		let temp_dir = PathBuf::from("/tmp/keystore");
 		let key_store: KeystorePtr = Arc::new(LocalKeystore::open(temp_dir, None).unwrap());
@@ -286,7 +290,7 @@ where
 	<T as subxt::Config>::Address: From<<T as subxt::Config>::AccountId>,
 	<T as subxt::Config>::Signature: From<MultiSignature> + Send + Sync,
 	H256: From<T::Hash>,
-	<<T as subxt::Config>::Header as Header>::Number:
+	<<T as subxt::Config>::Header as HeaderT>::Number:
 		From<u32> + Ord + sp_runtime::traits::Zero + One,
 	<T as subxt::Config>::AccountId: Send + Sync,
 	<T as subxt::Config>::Address: Send + Sync,
@@ -295,8 +299,8 @@ where
 	pub fn grandpa_prover(&self) -> GrandpaProver<T> {
 		let relay_ws_client = self.relay_ws_client.clone();
 		let para_ws_client = self.para_ws_client.clone();
-		let relay_rpc_client = RpcClient::from_url(self.relay_chain_rpc_url).await?;
-		let para_rpc_client = RpcClient::from_url(self.parachain_rpc_url).await?;
+		let relay_rpc_client = self.relay_rpc_client.clone();
+		let para_rpc_client = self.para_rpc_client.clone();
 
 		GrandpaProver {
 			relay_client: self.relay_client.clone(),
@@ -318,15 +322,15 @@ where
 		client_state: &ClientState,
 	) -> Result<Vec<T::Header>, Error>
 	where
-		u32: From<<<T as subxt::Config>::Header as Header>::Number>,
-		<<T as subxt::Config>::Header as Header>::Number: From<u32>,
+		u32: From<<<T as subxt::Config>::Header as HeaderT>::Number>,
+		<<T as subxt::Config>::Header as HeaderT>::Number: From<u32>,
 		<T as subxt::Config>::Header: Decode,
 	{
 		let client_wrapper = Prover {
 			relay_rpc_client: self.relay_rpc_client.clone(),
 			para_id: self.para_id,
 			para_rpc_client: todo!(),
-			phantom: Default::default(),
+			phantom: std::marker::PhantomData::<T>,
 		};
 
 		let headers = client_wrapper
@@ -348,17 +352,17 @@ where
 		&self,
 		commitment_block_number: u32,
 		client_state: &ClientState,
-		headers: Vec<<<T as subxt::Config>::Header as Header>::Number>,
+		headers: Vec<<<T as subxt::Config>::Header as HeaderT>::Number>,
 	) -> Result<(Vec<ParachainHeader>, Proof<H256>), Error>
 	where
-		<<T as subxt::Config>::Header as Header>::Number: Ord + sp_runtime::traits::Zero,
+		<<T as subxt::Config>::Header as HeaderT>::Number: Ord + sp_runtime::traits::Zero,
 		<T as subxt::Config>::Header: Decode,
 	{
 		let client_wrapper = Prover {
 			relay_rpc_client: self.relay_rpc_client.clone(),
 			para_rpc_client: self.para_rpc_client.clone(),
 			para_id: self.para_id,
-			phantom: std::marker::PhantomData,
+			phantom: std::marker::PhantomData::<T>,
 		};
 
 		let (parachain_headers, batch_proof) = client_wrapper
@@ -387,7 +391,7 @@ where
 					timestamp_extrinsic: para_header.timestamp_extrinsic,
 				})
 			})
-			.collect::<Result<Vec<_>, codec::Error>>()?;
+			.collect::<Result<Vec<_>, parity_scale_codec::Error>>()?;
 
 		Ok((parachain_headers, batch_proof))
 	}
@@ -404,7 +408,7 @@ where
 			relay_rpc_client: self.relay_rpc_client.clone(),
 			para_rpc_client: self.para_rpc_client.clone(),
 			para_id: self.para_id,
-			phantom: Default::default(),
+			phantom: std::marker::PhantomData::<T>,
 		};
 
 		let mmr_update =
@@ -419,7 +423,7 @@ where
 	///
 	/// We retry sending the transaction up to 5 times in the case where the transaction pool might
 	/// reject the transaction because of conflicting nonces.
-	pub async fn submit_call<C: TxPayload>(&self, call: C) -> Result<(T::Hash, T::Hash), Error> {
+	pub async fn submit_call<C: Payload>(&self, call: C) -> Result<(T::Hash, T::Hash), Error> {
 		// Try extrinsic submission five times in case of failures
 		let mut count = 0;
 		let progress = loop {
@@ -451,7 +455,7 @@ where
 		};
 
 		let tx_in_block =
-			tokio::time::timeout(WAIT_FOR_IN_BLOCK_TIMEOUT, progress.wait_for_in_block())
+			tokio::time::timeout(WAIT_FOR_IN_BLOCK_TIMEOUT, progress.wait_for_finalized())
 				.await
 				.map_err(|e| {
 					Error::from(format!("[submit_call] Failed to wait for in block due to {:?}", e))
@@ -480,10 +484,10 @@ where
 	<T as subxt::Config>::Address: From<<T as subxt::Config>::AccountId>,
 	<T as subxt::Config>::Signature: From<MultiSignature> + Send + Sync,
 	H256: From<T::Hash>,
-	<<T as subxt::Config>::Header as Header>::Number: Ord + sp_runtime::traits::Zero + One,
+	<<T as subxt::Config>::Header as HeaderT>::Number: Ord + sp_runtime::traits::Zero + One,
 	T::Header: HeaderT,
 	<<T::Header as HeaderT>::Hasher as subxt::config::Hasher>::Output: From<T::Hash>,
-	<<T as subxt::Config>::Header as Header>::Number: From<u32>,
+	<<T as subxt::Config>::Header as HeaderT>::Number: From<u32>,
 	BTreeMap<H256, ParachainHeaderProofs>:
 		From<BTreeMap<<T as subxt::Config>::Hash, ParachainHeaderProofs>>,
 	<T as subxt::Config>::AccountId: Send + Sync,
@@ -508,19 +512,21 @@ where
 			relay_rpc_client: self.relay_rpc_client.clone(),
 			para_rpc_client: self.para_rpc_client.clone(),
 			para_id: self.para_id,
-			phantom: Default::default(),
+			phantom: std::marker::PhantomData::<T>,
 		};
 		loop {
 			let beefy_state = client_wrapper.construct_beefy_client_state().await.map_err(|e| {
 				Error::from(format!("[construct_beefy_client_state] Failed due to {:?}", e))
 			})?;
 
-			let subxt_block_number: subxt::rpc::types::BlockNumber =
+			let subxt_block_number: subxt::backend::legacy::rpc_methods::BlockNumber =
 				beefy_state.latest_beefy_height.into();
-			let block_hash =
-				self.relay_client.rpc().block_hash(Some(subxt_block_number)).await?.ok_or_else(
-					|| Error::Custom(format!("Couldn't find block hash for relay block",)),
-				)?;
+			let block_hash = LegacyRpcMethods::<T>::new(self.relay_rpc_client.clone())
+				.chain_get_block_hash(Some(subxt_block_number))
+				.await?
+				.ok_or_else(|| {
+					Error::Custom(format!("Couldn't find block hash for relay block",))
+				})?;
 			let heads_addr = T::Storage::paras_heads(self.para_id);
 			let head_data = <T::Storage as RuntimeStorage>::HeadData::from_inner(
 				api.at(block_hash).fetch(&heads_addr).await?.ok_or_else(|| {
@@ -545,17 +551,20 @@ where
 				para_id: self.para_id,
 				authority: beefy_state.current_authorities,
 				next_authority_set: beefy_state.next_authorities,
-				_phantom: Default::default(),
+				_phantom: std::marker::PhantomData::<T>,
 			};
 			// we can't use the genesis block to construct the initial state.
 			if block_number == 0 {
 				continue
 			}
-			let subxt_block_number: subxt::rpc::types::BlockNumber = block_number.into();
-			let block_hash =
-				self.para_client.rpc().block_hash(Some(subxt_block_number)).await?.ok_or_else(
-					|| Error::Custom(format!("Couldn't find block hash for para block",)),
-				)?;
+			let subxt_block_number: subxt::backend::legacy::rpc_methods::BlockNumber =
+				block_number.into();
+			let block_hash = LegacyRpcMethods::<T>::new(self.para_rpc_client.clone())
+				.chain_get_block_hash(Some(subxt_block_number))
+				.await?
+				.ok_or_else(|| {
+					Error::Custom(format!("Couldn't find block hash for para block",))
+				})?;
 			let timestamp_addr = T::Storage::timestamp_now();
 			let unix_timestamp_millis = para_client_api
 				.at(block_hash)
@@ -585,7 +594,7 @@ where
 			From<MultiSigner> + IdentifyAccount<AccountId = T::AccountId>,
 		MultiSigner: From<MultiSigner>,
 		<T as subxt::Config>::Address: From<<T as subxt::Config>::AccountId>,
-		u32: From<<<T as subxt::Config>::Header as Header>::Number>,
+		u32: From<<<T as subxt::Config>::Header as HeaderT>::Number>,
 		<T as subxt::Config>::Hash: From<H256>,
 		<T as subxt::Config>::Header: Decode,
 	{
@@ -611,7 +620,7 @@ where
 
 			let heads_addr = T::Storage::paras_heads(self.para_id);
 			let head_data = <T::Storage as RuntimeStorage>::HeadData::from_inner(
-				api.at(light_client_state.latest_relay_hash.into())
+				api.at(light_client_state.latest_relay_hash)
 					.fetch(&heads_addr)
 					.await?
 					.ok_or_else(|| {
@@ -642,16 +651,17 @@ where
 			client_state.para_id = self.para_id;
 			client_state.latest_relay_height = light_client_state.latest_relay_height;
 
-			let subxt_block_number: subxt::rpc::types::BlockNumber = block_number.into();
-			let block_hash =
-				self.para_client.rpc().block_hash(Some(subxt_block_number)).await?.ok_or_else(
-					|| {
-						Error::Custom(format!(
-							"Couldn't find block hash for ParaId({}) at block number {}",
-							self.para_id, block_number
-						))
-					},
-				)?;
+			let subxt_block_number: subxt::backend::legacy::rpc_methods::BlockNumber =
+				block_number.into();
+			let block_hash = LegacyRpcMethods::<T>::new(self.para_rpc_client.clone())
+				.chain_get_block_hash(Some(subxt_block_number))
+				.await?
+				.ok_or_else(|| {
+					Error::Custom(format!(
+						"Couldn't find block hash for ParaId({}) at block number {}",
+						self.para_id, block_number
+					))
+				})?;
 			let timestamp_addr = T::Storage::timestamp_now();
 			let unix_timestamp_millis = para_client_api
 				.at(block_hash)

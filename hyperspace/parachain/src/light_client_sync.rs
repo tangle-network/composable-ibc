@@ -12,9 +12,9 @@ use sp_runtime::{
 	traits::{IdentifyAccount, One, Verify},
 	MultiSignature, MultiSigner,
 };
-use subxt::config::{
-	extrinsic_params::{BaseExtrinsicParamsBuilder, ExtrinsicParams},
-	Header as HeaderT, Header,
+use subxt::{
+	backend::legacy::LegacyRpcMethods,
+	config::{ExtrinsicParams, Header as HeaderT},
 };
 
 use grandpa_prover::GrandpaProver;
@@ -42,22 +42,21 @@ impl<T: light_client_common::config::Config + Send + Sync + Clone> LightClientSy
 	for ParachainClient<T>
 where
 	u32: From<<<T as subxt::Config>::Header as HeaderT>::Number>,
-	u32: From<<<T as subxt::Config>::Header as Header>::Number>,
 	Self: KeyProvider,
 	<<T as light_client_common::config::Config>::Signature as Verify>::Signer:
 		From<MultiSigner> + IdentifyAccount<AccountId = T::AccountId>,
 	MultiSigner: From<MultiSigner>,
 	<T as subxt::Config>::Address: From<<T as subxt::Config>::AccountId>,
 	<T as subxt::Config>::Signature: From<MultiSignature> + Send + Sync,
-	<<T as subxt::Config>::Header as Header>::Number:
+	<<T as subxt::Config>::Header as HeaderT>::Number:
 		BlockNumberOps + From<u32> + Display + Ord + sp_runtime::traits::Zero + One + Send + Sync,
 	<T as subxt::Config>::Header: Decode + Send + Sync + Clone,
 	T::Hash: From<sp_core::H256> + From<[u8; 32]>,
 	sp_core::H256: From<T::Hash>,
 	BTreeMap<sp_core::H256, ParachainHeaderProofs>:
 		From<BTreeMap<<T as subxt::Config>::Hash, ParachainHeaderProofs>>,
-	<T::ExtrinsicParams as ExtrinsicParams<T::Index, T::Hash>>::OtherParams:
-		From<BaseExtrinsicParamsBuilder<T, T::Tip>> + Send + Sync,
+	// <T::ExtrinsicParams as ExtrinsicParams<T>>::Params:
+	// 	From<BaseExtrinsicParamsBuilder<T, T::Tip>> + Send + Sync,
 	<T as light_client_common::config::Config>::AssetId: Clone,
 	<T as subxt::Config>::AccountId: Send + Sync,
 	<T as subxt::Config>::Address: Send + Sync,
@@ -81,9 +80,13 @@ where
 					unreachable!()
 				};
 
-				let latest_hash = self.relay_client.rpc().finalized_head().await?;
-				let finalized_head =
-					self.relay_client.rpc().header(Some(latest_hash)).await?.ok_or_else(|| {
+				let latest_hash = LegacyRpcMethods::<T>::new(self.relay_rpc_client.clone())
+					.chain_get_finalized_head()
+					.await?;
+				let finalized_head = LegacyRpcMethods::<T>::new(self.relay_rpc_client.clone())
+					.chain_get_header(Some(latest_hash))
+					.await?
+					.ok_or_else(|| {
 						Error::Custom(format!("Expected finalized header, found None"))
 					})?;
 				let previous_finalized_height = client_state.latest_relay_height;
@@ -121,9 +124,13 @@ where
 				else {
 					unreachable!()
 				};
-				let latest_hash = self.relay_client.rpc().finalized_head().await?;
-				let finalized_head =
-					self.relay_client.rpc().header(Some(latest_hash)).await?.ok_or_else(|| {
+				let latest_hash = LegacyRpcMethods::<T>::new(self.relay_rpc_client.clone())
+					.chain_get_finalized_head()
+					.await?;
+				let finalized_head = LegacyRpcMethods::<T>::new(self.relay_rpc_client.clone())
+					.chain_get_header(Some(latest_hash))
+					.await?
+					.ok_or_else(|| {
 						Error::Custom(format!("Expected finalized header, found None"))
 					})?;
 				let latest_finalized_height = u32::from(finalized_head.number());
@@ -160,7 +167,7 @@ where
 	H256: From<T::Hash>,
 	BTreeMap<sp_core::H256, ParachainHeaderProofs>:
 		From<BTreeMap<<T as subxt::Config>::Hash, ParachainHeaderProofs>>,
-	<<T as subxt::Config>::Header as Header>::Number:
+	<<T as subxt::Config>::Header as HeaderT>::Number:
 		BlockNumberOps + From<u32> + Display + Ord + sp_runtime::traits::Zero + One,
 	<T as subxt::Config>::AccountId: Send + Sync,
 	<T as subxt::Config>::Address: Send + Sync,
@@ -179,12 +186,12 @@ where
 		limit: usize,
 	) -> Result<(Vec<Any>, Vec<IbcEvent>), anyhow::Error>
 	where
-		<<T as subxt::Config>::ExtrinsicParams as ExtrinsicParams<
-			<T as subxt::Config>::Index,
-			<T as subxt::Config>::Hash,
-		>>::OtherParams: Sync
-			+ Send
-			+ From<BaseExtrinsicParamsBuilder<T, <T as light_client_common::config::Config>::Tip>>,
+		// <<T as subxt::Config>::ExtrinsicParams as ExtrinsicParams<
+		// 	<T as subxt::Config>::Index,
+		// 	<T as subxt::Config>::Hash,
+		// >>::Params: Sync
+		// 	+ Send
+		// 	+ From<ExtrinsicParamsBuilder<T, <T as light_client_common::config::Config>::Tip>>,
 		<T as subxt::Config>::Hash: From<H256>,
 		<T as subxt::Config>::Hash: From<[u8; 32]>,
 		<T as light_client_common::config::Config>::AssetId: Clone,
@@ -251,9 +258,8 @@ async fn get_message<T: light_client_common::config::Config + Send + Sync>(
 	para_id: u32,
 ) -> Result<(Any, Vec<IbcEvent>, u32, u32), anyhow::Error>
 where
-	u32: From<<<T as subxt::Config>::Header as HeaderT>::Number>
-		+ From<<<T as subxt::Config>::Header as Header>::Number>,
-	<<T as subxt::Config>::Header as Header>::Number:
+	u32: From<<<T as subxt::Config>::Header as HeaderT>::Number>,
+	<<T as subxt::Config>::Header as HeaderT>::Number:
 		BlockNumberOps + From<u32> + Display + Ord + sp_runtime::traits::Zero + One + Send + Sync,
 	<T as subxt::Config>::Header: Decode + Send + Sync + Clone,
 	H256: From<T::Hash>,
@@ -303,7 +309,7 @@ where
 			} else {
 				str::parse::<u32>(&*num)
 					.ok()
-					.map(<<T as subxt::Config>::Header as Header>::Number::from)
+					.map(<<T as subxt::Config>::Header as HeaderT>::Number::from)
 			}
 		})
 		.collect::<BTreeSet<_>>();
